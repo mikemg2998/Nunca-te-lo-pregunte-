@@ -1,0 +1,13 @@
+# Nunca te lo pregunté
+
+Juego de cartas para dos personas que llevan años juntas y creen que ya se lo han preguntado todo.
+Web estática instalable en el móvil (Añadir a pantalla de inicio).
+
+- `index.html`, `styles.css`: interfaz.
+- `js/cards.js`: banco de cartas con metadatos (mecánica, categoría, rareza, profundidad, etiquetas).
+- `js/director.js`: director de partida (pesos por modo, enfriamientos, curva, control de repetición).
+- `js/app.js`: pantallas, flujos de cada mecánica, reglas Caos, favoritas e historial (localStorage).
+- `tests/simulate.js`: `node tests/simulate.js 100` simula 100 partidas por modo y debe terminar en «✓ Todo correcto».
+- `tools/build-artifact.js`: genera una versión en un solo archivo en `dist/`.
+
+Modo desarrollo: añade `#dev` a la URL para forzar una mecánica concreta.
