@@ -42,7 +42,16 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 
 /* carta: una sola cara, la pregunta en el centro visual, el mínimo de marco */
 .stage{margin-top:18px}
-.card{position:relative;border-radius:20px;touch-action:pan-y;user-select:none;-webkit-user-select:none;transition:transform .2s ease,opacity .2s ease;will-change:transform}
+/* pantalla de cartas fija: sin desplazamiento vertical ni rebote; la carta se adapta a la altura */
+body.fixed{position:fixed;inset:0;height:100dvh;overflow:hidden;overscroll-behavior:none;padding-bottom:0}
+body.fixed .app{height:100%;min-height:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px)}
+body.fixed .stage{flex:1;display:flex;flex-direction:column;min-height:0;margin-top:14px}
+body.fixed .card{flex:1;display:flex;flex-direction:column;min-height:0}
+body.fixed .face{flex:1;min-height:0}
+body.fixed .q-wrap{overflow:hidden}
+body.fixed .actions{margin-top:12px;flex:none}
+body.fixed .loading{min-height:0}
+.card{position:relative;border-radius:20px;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .2s ease,opacity .2s ease;will-change:transform}
 .face{position:relative;border-radius:20px;padding:22px 24px 22px;min-height:clamp(400px,60vh,560px);display:flex;flex-direction:column;
   background:linear-gradient(172deg,var(--card-2),var(--card) 50%);border:1px solid var(--line);
   box-shadow:0 1px 0 rgba(255,240,210,.05) inset,0 18px 36px -26px rgba(0,0,0,.9);overflow:hidden}

@@ -229,7 +229,7 @@ function playView() {
       <div class="actions"><button class="btn primary" data-a="accept">${c.n ? 'Acepto la regla' : 'Hecho'}</button><button class="link" data-a="pass">Saltar</button></div>`;
   }
   const inner = `<div class="face">${cardTop(c)}<div class="q-wrap"><h2 class="${qClass(c)}">${rich(c.text)}</h2></div>${body ? `<div class="c-body">${body}</div>` : ''}${rar(c)}</div>`;
-  return head() + `<div class="stage"><article class="card" id="card"><span class="swipe-tag save">Guardar</span><span class="swipe-tag pass">Pasar</span>${inner}</article></div>
+  return head() + `<div class="stage"><article class="card" id="card"><span class="swipe-tag pass">Pasar</span>${inner}</article></div>
     <div class="actions">${acts}</div>`;
 }
 
@@ -238,7 +238,7 @@ function favsView() {
   return `<div class="s-head"><button class="ibtn" data-a="backfrom" aria-label="Volver">${ic('back')}</button></div>
   <h2 class="h2">Favoritas</h2><p class="sub">${list.length ? `${list.length} ${plural(list.length, 'carta guardada', 'cartas guardadas')}.` : ''}</p>
   ${list.length ? list.map(c => `<div class="fav"><span class="cat">${MECH_LABEL[c.mech]} · ${esc(c.catLabel)}</span><p>${c.mech === 'caos' ? `<b style="font-weight:400;color:var(--gold-2)">${esc(c.name)}.</b> ` : ''}${esc(plain(c.text))}</p><button class="mark on" data-a="fav" data-id="${c.id}" aria-label="Quitar">${ic('mark')}</button></div>`).join('')
-    : `<p class="empty">Todavía no hay favoritas. Guarda una carta con el marcador, o deslízala hacia la derecha.</p>`}
+    : `<p class="empty">Todavía no hay favoritas. Guarda una carta con el marcador.</p>`}
   ${list.length >= 3 ? `<div class="actions"><button class="btn primary" data-a="playfavs">Jugar las favoritas</button></div>` : ''}`;
 }
 function seg(key, opts) { return `<div class="seg">${opts.map(([v, l]) => `<button class="${S.settings[key] === v ? 'on' : ''}" data-a="setv" data-k="${key}" data-v="${JSON.stringify(v).replace(/"/g, '&quot;')}">${l}</button>`).join('')}</div>`; }
@@ -256,6 +256,7 @@ function settingsView() {
 function render(anim) {
   const v = { home: homeView, modes: modesView, loading: loadingView, play: playView, favs: favsView, settings: settingsView }[S.screen];
   app.innerHTML = v();
+  document.body.classList.toggle('fixed', S.screen === 'play' || S.screen === 'loading'); // la pantalla de cartas no se desplaza
   const card = document.getElementById('card');
   if (card) {
     if (anim) card.classList.add('enter'); else if (S.swap) card.classList.add('swap');
@@ -401,10 +402,11 @@ function attachSwipe(card) {
     if (!on) return; dx = e.clientX - sx;
     if (Math.abs(e.clientY - sy) > 40 && Math.abs(dx) < 20) { on = false; card.style.transform = ''; return; }
     if (Math.abs(dx) > 6 && !card.hasPointerCapture(e.pointerId)) card.setPointerCapture(e.pointerId);
-    card.style.transform = `translateX(${dx}px) rotate(${dx / 24}deg)`;
-    if (sv) { sv.style.opacity = Math.max(0, Math.min(1, (dx - 20) / 70)); ps.style.opacity = Math.max(0, Math.min(1, (-dx - 20) / 70)); }
+    const x = Math.min(dx, 0) + Math.max(dx, 0) * .25; // hacia la derecha apenas se mueve: guardar es con el marcador
+    card.style.transform = `translateX(${x}px) rotate(${x / 24}deg)`;
+    if (ps) ps.style.opacity = Math.max(0, Math.min(1, (-dx - 20) / 70));
   });
-  const end = () => { if (!on) return; on = false; card.style.transition = ''; if (dx > 100) swipeOut(1); else if (dx < -100) swipeOut(-1); else { card.style.transform = ''; if (sv) { sv.style.opacity = 0; ps.style.opacity = 0; } } };
+  const end = () => { if (!on) return; on = false; card.style.transition = ''; if (dx < -100) swipeOut(-1); else { card.style.transform = ''; if (ps) ps.style.opacity = 0; } };
   card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end);
 }
 
