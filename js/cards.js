@@ -208,25 +208,43 @@ const SRC = String.raw`
 2 1 memoria | ¿Preferirías recordar todo lo que has leído en tu vida, o todo lo que te han dicho las personas que quieres?
 3 0 sueño | ¿Preferirías dormir cuatro horas y despertar descansado pero soñando siempre lo mismo, o nueve horas con sueños increíbles que recuerdas con todo detalle?
 2 1 humor | ¿Preferirías que todo el mundo notara siempre cuándo estás de mal humor, o que nadie lo notara nunca, ni siquiera yo?
-1 1 amigos | ¿Preferirías ser la persona más fiable de tu grupo pero nunca la más divertida, o la más divertida pero nunca a la que llaman cuando hay un problema?
 3 1 futuro | ¿Preferirías saber la fecha exacta del mejor día de tu vida, o no saberla pero que te avisen esa misma mañana?
 4 0 mentiras | ¿Preferirías que cada vez que mientes te saliera una florecita en el pelo, o que cada vez que dices la verdad sonara un aplauso muy flojito?
-2 0 tiempo | ¿Preferirías saber siempre la hora exacta sin mirar ningún reloj, o saber siempre cuántas personas hay en el edificio?
 3 0 ropa | ¿Preferirías ropa eternamente cómoda pero dos años pasada de moda, o eternamente elegante pero que cruje un poco al caminar?
 2 0 tiempo | ¿Preferirías pausar a todo el mundo diez segundos una vez al día, o rebobinar tu última frase tres veces al día?
 2 1 tiempo | ¿Preferirías volver a vivir un día cualquiera de tu pasado sin cambiar nada, o vivir un día de dentro de veinte años sin poder recordarlo después?
-3 0 dinero | ¿Preferirías cobrar el salario mínimo por cada hora que duermes, o una cantidad desconocida por cada buena idea que tengas, pagada a final de año?
+3 0 dinero | ¿Preferirías cobrar el salario mínimo por cada hora que duermes, o una cantidad desconocida por cada buena idea, pagada a final de año?
 3 1 infancia | ¿Preferirías hablar diez minutos con tu yo de 15 años, o que tu yo de 15 años te observara un día entero sin que lo sepas?
-2 0 viajes | ¿Preferirías viajar siempre en primera clase pero llegar una hora tarde, o en el peor asiento pero llegar media hora antes?
-3 0 casa | ¿Preferirías tener un mayordomo perfecto que comenta en voz alta todo lo que haces, o hacerlo todo tú sin testigos?
-2 1 casa | ¿Preferirías una casa perfecta en una ciudad que no te gusta, o un piso regular en la ciudad que más te gusta?
+3 0 casa | ¿Preferirías un mayordomo perfecto que comenta en voz alta todo lo que haces, o hacerlo todo tú sin testigos?
 3 1 cultura | ¿Preferirías olvidar el final de tus películas favoritas para disfrutarlas otra vez, o recordar perfectamente todas las que ya has olvidado?
-2 0 comida | ¿Preferirías que todo lo que cocinas saliera perfecto pero tardando el triple, o normal pero sin tener que fregar nunca?
 3 0 familia | ¿Preferirías que tu peor foto fuera famosa en todo el país una semana, o que tu peor frase en público se repitiera en tu familia durante diez años?
-3 0 objetos | ¿Preferirías un botón que encuentra cualquier cosa perdida, pero tarda un día, o uno que te dice al instante por qué entraste en una habitación?
+3 0 objetos | ¿Preferirías un botón que encuentra cualquier cosa perdida pero tarda un día, o uno que te dice al instante por qué entraste en una habitación?
 3 1 gente | ¿Preferirías saber qué pensó de ti cada persona la primera vez que te vio, o qué piensa de ti hoy alguien que ya no está en tu vida?
 2 0 vacaciones | ¿Preferirías unas vacaciones perfectas de las que no puedes hacer ninguna foto, o unas normales con fotos preciosas?
-3 0 vecinos | ¿Preferirías unos vecinos que cantan ópera bien a las 8 de la mañana, o unos que no hacen ningún ruido pero te saludan con un abrazo cada vez?
+3 0 vecinos | ¿Preferirías unos vecinos que cantan ópera bien a las 8 de la mañana, o unos silenciosos que te saludan con un abrazo cada vez?
+4 0 animales | ¿Preferirías que el perro de un vecino pudiera hablar pero solo para criticar tu ropa, o que nuestra nevera hablara pero solo para darte ánimos?
+3 0 gente | ¿Preferirías saber el nombre de todas las personas que te han visto hoy, o que todas ellas supieran el tuyo?
+3 0 casa | ¿Preferirías un gato que friega los platos pero te juzga en silencio, o un robot que lo hace todo pero suspira cada vez?
+3 1 gente | ¿Preferirías recibir cada lunes una carta sincera de un desconocido, o tener que escribir una tú cada viernes?
+3 0 discusiones | ¿Preferirías tener siempre razón en las discusiones pequeñas y nunca en las grandes, o al revés?
+4 0 social | ¿Preferirías que te aplaudieran al entrar en cada tienda, o que te dedicaran un minuto de silencio al salir?
+3 1 tiempo | ¿Preferirías pasar un día entero a solas con tu yo de 17 años, o con tu yo de 70?
+3 0 coche | ¿Preferirías que las plantas te dijeran exactamente lo que necesitan, o que tu coche te dijera lo que piensa de tu forma de conducir?
+3 2 familia | ¿Preferirías que tus padres pudieran ver un día cualquiera de tu vida actual, o ver tú un día cualquiera de ellos cuando tenían tu edad?
+2 0 amigos | ¿Preferirías un amigo que siempre llega tarde pero con una historia increíble, o uno que siempre llega pronto y nunca tiene nada que contar?
+3 0 comida | ¿Preferirías poder dormir en cualquier postura como si fuera una cama, o comer cualquier cosa como si fuera tu plato favorito?
+2 1 identidad | ¿Preferirías que los desconocidos te creyeran más simpático de lo que eres, o más listo?
+3 0 tiempo | ¿Preferirías un día extra cada semana que solo tú recuerdas, o una hora extra cada día que todo el mundo comparte?
+3 0 objetos | ¿Preferirías que te devolvieran todos los paraguas que has perdido, o todas las horas que has pasado esperando a alguien?
+3 0 restaurantes | ¿Preferirías saber qué pensó de nosotros el camarero de la última cena, o qué piensa de nosotros el vecino que nunca saluda?
+3 0 viajes | ¿Preferirías pasar un año entero en el mejor hotel del mundo sin salir, o un año viajando sin dormir dos noches en el mismo sitio?
+4 0 animales | ¿Preferirías que todos los perros te adoraran pero todos los niños te temieran, o al revés?
+3 0 regalos | ¿Preferirías recibir cada año un objeto absurdo pero perfecto para ti, o 500 euros que solo puedes gastar en otras personas?
+3 0 sueño | ¿Preferirías recordar todos tus sueños con detalle, o que te los contara cada mañana una voz de documental?
+4 1 identidad | ¿Preferirías que tus memorias las escribiera tu profesora de primaria, o el gato de un vecino que te observa desde hace años?
+3 1 gente | ¿Preferirías saber cuántas veces has hecho reír a alguien en tu vida, o cuántas personas han pensado en ti hoy?
+3 0 casa | ¿Preferirías una casa donde cada noche una habitación cambia de sitio, o una donde todo está siempre donde lo dejaste pero nunca recuerdas dónde?
+2 1 nosotros | ¿Preferirías saber qué pensé de ti el primer día, o qué pensaré de ti dentro de diez años?
 
 ## libre teo
 3 0 ascensores | ¿Por qué crees realmente que los ascensores tienen espejo? Quiero la versión conspirativa.
@@ -297,41 +315,48 @@ const SRC = String.raw`
 
 ## rapida rap
 2 0 identidad | Nombre de mi autobiografía.
-3 0 casa | ¿Qué electrodoméstico de casa me representa mejor?
+2 0 humor | Un color para mi humor de hoy.
+3 0 casa | El electrodoméstico que más me quiere.
 2 0 domingos | Nombre para un perfume que huela a domingo por la tarde.
 4 0 objetos | Un objeto que sería un pésimo presidente.
-3 0 restaurantes | Nombre de un restaurante solo para gente que llega tarde.
-2 0 coche | Una palabra que defina mi forma de conducir.
+2 0 coche | Una palabra para mi forma de conducir.
 2 0 animales | El peor nombre posible para un gato.
 1 0 comida | Una cosa que nunca falta en nuestra nevera.
 2 0 viajes | Título de la película de nuestro último viaje.
-3 0 talentos | Un superpoder inútil que ya tengo.
+3 0 talentos | Mi superpoder inútil.
 2 0 trabajo | Una profesión que yo haría fatal.
-2 0 musica | Una canción que defina esta semana.
 3 0 vecinos | Nombre del grupo de música que formarían nuestros vecinos.
-3 0 viajes | Algo que deberían prohibir en los aeropuertos.
 3 0 comida | Un sabor de helado que solo compraría yo.
 1 0 objetos | El objeto más inútil que tenemos en casa.
-2 0 familia | La primera palabra que te viene al pensar en mi familia.
-2 0 comida | Un plato que cocino «a mi manera».
-2 0 viajes | Un lugar al que nunca iríamos de vacaciones juntos.
-3 0 animales | Lo que diría un loro que hubiera vivido un año con nosotros.
+2 0 comida | Un alimento que yo nunca compartiría.
+2 0 musica | La canción que pondría yo para fregar.
+3 0 viajes | Nombre de nuestro barco pirata.
+2 0 viajes | Primer destino que te viene a la cabeza para escaparnos este fin de semana.
+3 0 familia | Un famoso que podría ser primo mío.
+2 0 frases | La palabra que yo digo mal a propósito.
 3 0 deporte | Un deporte olímpico que yo ganaría sin entrenar.
 3 0 casa | El nombre de esta casa si fuera un hotel.
-3 0 frases | Una frase que nunca me has oído decir.
-3 0 cine | Un villano de película que me caería bien.
 2 0 manias | Una manía mía en tres palabras.
 1 0 viajes | Algo que siempre olvido en los viajes.
 3 0 animales | El nombre de nuestra próxima mascota imaginaria.
-2 0 casa | El rincón de la casa donde me escondería jugando al escondite.
+2 0 casa | Mi sitio de la casa a las 11 de la noche.
+2 0 planes | Lo que yo haría ahora mismo con 20 minutos libres.
+2 0 comida | Mi plato de emergencia.
+2 0 objetos | Lo que yo digo cuando pierdo algo.
+2 0 casa | Un apodo para nuestro sofá.
+1 0 semana | La primera palabra que piensas al oír «lunes».
+2 0 tiempo | Mi frase cuando llego tarde.
+3 0 restaurantes | Nombre para un bar que solo abre cuando llueve.
+2 0 dinero | Lo primero que compraría yo si me tocara la lotería a las 7 de la mañana.
+3 0 cine | Nombre de nuestro dúo si fuéramos atracadores de bancos.
+3 0 supermercado | Mi animal espiritual dentro de un supermercado.
+3 0 sonidos | El sonido que haría yo si fuera un electrodoméstico.
+2 0 compras | Una cosa que yo compro siempre de más.
+3 0 objetos | Un objeto de esta habitación que sería un buen sombrero.
+2 0 tiempo | Mi hora favorita del día, en un número.
 3 0 fiestas | Una tradición navideña nueva para esta casa.
-3 0 objetos | Un objeto absurdo que salvarías de un incendio.
-2 0 planes | Lo que más tiempo llevo diciendo que voy a hacer.
-4 0 animales | Un animal que sería un gran abogado.
-3 0 restaurantes | Nombre de un restaurante para fantasmas con mala suerte.
-2 0 sueño | La hora a la que de verdad me voy a dormir cuando digo «ya me voy a la cama».
-3 0 ropa | La prenda que me pondría para ir a la luna.
-4 0 tecnologia | Un objeto que jamás debería tener una versión inteligente.
+2 0 sueño | La hora a la que de verdad me duermo cuando digo «ya me voy a la cama».
+4 0 tecnologia | Un objeto que jamás debería tener versión inteligente.
 
 ## predice pre
 3 0 cdb | Unos extraterrestres te devuelven a casa después de 48 horas de abducción. Sin decir una palabra, haces algo que confirma que sigues siendo tú. ¿Qué haces?
@@ -357,21 +382,21 @@ const SRC = String.raw`
 2 0 musica,coche | Eliges la música de un viaje en coche de seis horas y nadie puede discutírtelo. ¿Qué suena primero?
 4 0 cdb,vecinos | Te dan el mando de nuestra calle durante un mes. ¿Cuál es tu primera medida?
 3 0 fiestas,w | En una fiesta de disfraces sin tema, ¿de qué te disfrazas si nadie te ayuda a decidir?
-2 0 tecnologia | Puedes borrar un electrodoméstico de la historia de la humanidad. ¿Cuál borras?
-3 0 tecnologia | Se cae internet en todo el mundo durante una semana. ¿Qué es lo primero que echas de menos de verdad?
+3 0 tecnologia | Puedes borrar un invento de la historia, pero tiene que ser pequeño y cotidiano. ¿Cuál desaparece?
+3 0 tecnologia | Internet desaparece una semana en todo el mundo. ¿Qué cosa rara acabas haciendo el martes por la tarde?
 2 0 trabajo,w | Te regalan un año sabático pagado. ¿Qué haces el primer mes?
 3 0 tiempo | Puedes cambiarle el nombre a un día de la semana. ¿Cuál y cómo se llama?
 3 0 comida | En una isla desierta te permiten un solo condimento para toda la vida. ¿Cuál?
-2 0 talentos | Tienes que dar una charla de una hora sin prepararla. ¿Sobre qué tema podrías hablar sin parar?
+3 0 talentos | Te suben a un escenario delante de 300 personas a hablar una hora sin preparar nada. ¿De qué hablas, y en qué minuto empiezas a inventar?
 3 0 talentos,w | Escribes un libro de autoayuda basado en algo que haces bien. ¿Cómo se titula?
 4 0 objetos | Una empresa fabrica un muñeco con tu cara. ¿Qué frase dice al apretarle la barriga?
-3 0 musica | Te cuelan en el camerino de un concierto. ¿De quién?
+3 0 musica | Te cuelan en el camerino de un concierto y tienes cinco minutos a solas con el artista. ¿Con quién, y qué le preguntas que nadie le pregunta?
 2 0 viajes | Tenemos que mudarnos mañana a otra ciudad del país. ¿Cuál eliges, y por qué motivo poco serio?
 3 0 cdb,frases | Tienes que pasar 24 horas sin hablar. ¿Qué es lo primero que intentas decir con gestos?
 2 0 tiendas | Tienes una tarde para ti en un centro comercial vacío. ¿A qué tienda vas primero?
 3 0 animales | Puedes tener un animal de compañía de cualquier especie, pero tiene que vivir en este piso. ¿Cuál eliges?
 3 0 cine | Ganas una cena en casa de cualquier personaje de ficción. ¿En qué casa cenas?
-2 0 casa | Solo puedes salvar un objeto de esta casa. ¿Cuál coges primero?
+3 0 casa | Hay que salir de casa en 30 segundos. ¿Qué objeto coges que no tiene ningún sentido coger?
 3 0 ropa,w | Tienes que llevar una camiseta con una frase durante un año. Tú eliges la frase. ¿Cuál es?
 4 0 tiempo | Te toca ponerle nombre al próximo huracán. ¿Cómo se llama?
 2 0 cdb,mañanas | Tienes la mañana libre y no hay nadie en casa. ¿Qué es lo primero que haces?
@@ -379,7 +404,7 @@ const SRC = String.raw`
 3 0 viajes | Puedes quedarte con un objeto de cualquier hotel en el que hayas estado. ¿Cuál coges?
 4 0 cine | Te ofrecen un pequeño papel en una película. Eliges el género. ¿Cuál, y qué papel?
 2 0 deseos | Aparece un genio que solo concede deseos pequeños e inmediatos. ¿Qué le pides primero?
-3 1 tiempo | Tienes que vivir un mes en el pasado, sin poder volver antes. ¿En qué año?
+3 1 tiempo | Tienes que vivir un mes en el pasado con tu trabajo actual. ¿En qué año te defenderías mejor?
 4 0 casa | Te obligan a cambiar tu nombre por el de un mueble. ¿Cuál eliges?
 3 0 cdb,social | En una cena con desconocidos, ¿qué tema sacas tú cuando nadie sabe qué decir?
 3 0 cdb,dinero | Te toca la lotería y prometes que no cambiará nada. ¿Qué es lo primero que cambia?
@@ -432,54 +457,53 @@ const SRC = String.raw`
 
 ## juicio jui
 3 sueño | ¿Una siesta de más de dos horas sigue siendo una siesta? | Sí. Una siesta es una siesta, dure lo que dure. | No. A partir de dos horas es una segunda noche.
-2 comida | ¿De quién es la última croqueta del plato? | De quien la vio primero. | De quien menos ha comido.
 3 casa | ¿Quien duerme más cerca de la puerta tiene que investigar los ruidos raros? | Sí. Quien está más cerca, va. | No. Va quien oyó el ruido primero.
-2 tiempo | ¿Llegar veinte minutos antes es llegar demasiado pronto? | Sí. Es tan grave como llegar tarde. | No. Llegar pronto es siempre buena educación.
 3 comida | Si pruebas la comida cinco veces mientras cocinas, ¿ya has cenado? | Sí. Cinco pruebas son una cena. | No. Probar no cuenta.
-2 tele | ¿Dejar una serie ocho meses significa que la has abandonado? | Sí. Está abandonada oficialmente. | No. Está en pausa indefinida.
-2 tele | ¿Se puede ver un capítulo de nuestra serie sin el otro? | Nunca. Es traición. | Sí, si luego lo vuelves a ver juntos.
-3 sueño | ¿El sofá es un sitio legítimo para pasar la noche entera? | Sí. Si el sueño te atrapa ahí, ahí te quedas. | No. Hay que despertar y llevarse a la cama.
-2 casa | ¿El último en levantarse hace la cama? | Sí. Es la ley natural. | No. La hace quien más la deshace.
 3 frases | ¿Es aceptable decir «ya voy» cuando todavía no te has movido? | Sí. Es una declaración de intenciones. | No. Es una mentira con buena prensa.
-2 comida | ¿Las sobras de la cena son un desayuno válido? | Sí. Es reciclaje inteligente. | No. El desayuno merece respeto.
-3 vecinos | ¿Cantar en la ducha es una molestia vecinal? | Sí. Hay normas para eso. | No. Es un servicio cultural gratuito.
 3 salud | ¿Hay que decir «salud» si alguien estornuda cinco veces seguidas? | Sí. Cada estornudo merece el suyo. | No. A partir del tercero ya es su problema.
-2 vacaciones | ¿Las vacaciones empiezan al salir de casa o al llegar al destino? | Al salir de casa. El viaje es parte. | Al llegar. Lo demás es logística.
-3 viajes | ¿Es razonable llevarte tu propia almohada a un hotel? | Sí. La almohada es identidad. | No. Es desconfiar del hotel.
-2 casa | ¿Quien cocina tiene que fregar? | No. Quien cocina ya ha cumplido. | Sí. Quien ensucia, limpia.
-3 dinero | ¿Comprar algo rebajado que no necesitabas es ahorrar? | Sí. Has pagado menos. | No. Has gastado más.
-3 cine | ¿Se puede contar el final de una película de hace más de diez años? | Sí. Ya ha prescrito. | No. Los finales no caducan.
-2 planes | ¿Un plan cancelado a última hora es una mala noticia o un regalo? | Una mala noticia. Había ilusión. | Un regalo. Nadie quería ir.
-3 comida | ¿La pizza fría del día siguiente es mejor que la recién hecha? | Sí. Es otra comida, y mejor. | No. Es una pizza triste.
-3 viajes | ¿Hacer la maleta la noche antes es organización o pánico? | Organización madura. | Pánico disfrazado.
-2 coche | ¿Quien conduce elige la música? | Sí. El volante manda. | No. El copiloto es el que pincha.
-3 viajes | ¿Está bien aplaudir cuando aterriza el avión? | Sí. Es gratitud. | No. Es su trabajo.
-3 casa | ¿Hablar con las plantas es razonable? | Sí. Crecen mejor y escuchan. | No. Es un monólogo con hojas.
-3 objetos | ¿Guardar bolsas dentro de una bolsa es orden o un problema? | Orden. Siempre hacen falta. | Un problema con asas.
-3 viajes | ¿Hay que hacer la cama en un hotel? | Sí. Por dignidad. | No. Para eso se paga.
-3 comida | ¿Dejar un trocito en el táper significa que no te lo has terminado? | Sí. Técnicamente queda. | No. Es una trampa moral.
-3 social | ¿Una cena con amigos termina cuando se recoge la mesa o cuando se van? | Cuando se recoge. Ahí acaba la noche. | Cuando se van. Lo demás es sobremesa.
-3 casa | ¿Es lícito poner la calefacción en junio? | Sí. El frío no consulta el calendario. | No. Hay normas no escritas.
-3 frases | ¿Se puede contar la misma anécdota dos veces delante de la misma gente? | Sí. Las buenas historias se repiten. | No. A la segunda ya es reposición.
-2 restaurantes | ¿Las sobras del restaurante se piden para llevar? | Siempre. Ya están pagadas. | Nunca. Hay una dignidad que mantener.
-3 tele | ¿El mando de la tele es de quien llegó primero al sofá? | Sí. Primera ocupación, primer derecho. | No. Es de quien sabe usarlo.
 4 comida | ¿Es aceptable comerse la parte crujiente de la lasaña antes de servirla? | Sí. Es la propina del cocinero. | No. Es un robo con delantal.
 3 objetos | ¿Ponerle nombre propio a un electrodoméstico es normal? | Sí. Se lo ha ganado. | No. Es un aparato.
-3 social | ¿Hay que despedirse de todo el mundo antes de irse de una fiesta? | Sí. Uno por uno. | No. Irse sin avisar es elegancia.
-2 fiestas | ¿Las películas de Navidad se pueden ver en julio? | Sí. La Navidad es un estado de ánimo. | No. Existe un calendario.
-3 regalos | ¿Un regalo puede ser algo que necesita la casa? | Sí. Lo práctico también es cariño. | No. Un regalo debe ser inútil.
-3 cultura | ¿Está permitido no terminar un libro malo? | Sí. La vida es corta. | No. Un libro empezado es una promesa.
-3 mañanas | ¿El primero que se despierta tiene que hacer el café? | Sí. Es su recompensa. | No. Tiene que esperar al otro.
-3 cultura | ¿Comprar un libro cuenta como haberlo empezado? | Sí. Es el primer paso de la lectura. | No. Es decoración.
-3 restaurantes | ¿Se puede pedir lo mismo que la otra persona en un restaurante? | Sí. Si es lo que quieres, lo pides. | No. Hay que diversificar para probar.
-2 casa | Si se muere una planta, ¿es culpa de quien la compró o de quien la regaba? | De quien la compró. Eligió mal. | De quien la regaba. Lo vio venir.
-4 casa | ¿Los fantasmas deberían pagar alquiler? | Sí. Ocupan espacio. | No. Ya trabajan bastante asustando.
-3 casa | ¿Hay que apagar la luz si vas a volver en dos minutos? | Sí. Siempre. | No. Dos minutos no son nada.
-3 sueño | ¿Posponer la alarma tres veces es descansar o sufrir? | Descansar. Son tres minisiestas. | Sufrir. Tres despertares en vez de uno.
+3 casa | ¿Hablar con las plantas es razonable? | Sí. Crecen mejor y escuchan. | No. Es un monólogo con hojas.
+3 objetos | ¿Guardar bolsas dentro de una bolsa es orden o un problema? | Orden. Siempre hacen falta. | Un problema con asas.
 3 ropa | ¿La ropa de la silla está limpia o sucia? | Limpia. Solo está descansando. | Sucia. Está en lista de espera.
-3 vacaciones | ¿Un viaje sin planificar es aventura o desastre anunciado? | Aventura. Lo mejor no se planea. | Desastre. Lo mejor se reserva.
 3 comida | ¿Mojar galletas en el café es una técnica o una falta de respeto a la galleta? | Una técnica milenaria. | Una falta de respeto.
+3 sueño | ¿Posponer la alarma tres veces es descansar o sufrir? | Descansar. Son tres minisiestas. | Sufrir. Tres despertares en vez de uno.
+4 casa | ¿Los fantasmas deberían pagar alquiler? | Sí. Ocupan espacio. | No. Ya trabajan bastante asustando.
 4 animales | Si un perro pudiera votar, ¿debería poder hacerlo? | Sí. Tiene opiniones claras. | No. Votaría a quien le dé jamón.
+4 animales | Un gato que lleva diez años en una casa, ¿tiene derecho a voto en la mudanza? | Sí. Es el que más horas pasa en ella. | No. Votaría quedarse en una caja.
+4 animales | Si un caracol lleva tres días cruzando la cocina, ¿está de paso o se ha mudado? | De paso. Solo es lento. | Se ha mudado. Tres días es vivir ahí.
+4 comida | Si la tostada cae del lado de la mermelada tres veces seguidas, ¿es mala suerte o es personal? | Mala suerte. Es física. | Es personal. La tostada sabe algo.
+4 objetos | Si un calcetín perdido aparece en casa de otra persona, ¿sigue siendo tuyo? | Sí. Un calcetín no cambia de dueño. | No. Ya ha hecho su vida.
+4 cine | Si te duermes en una película y sueñas el final, ¿la has visto? | Sí. Has visto un final. | No. Has visto otra película.
+4 animales | ¿Un pato con corbata es más respetable que una persona sin corbata? | Sí. Ha hecho un esfuerzo. | No. Sigue siendo un pato.
+4 casa | Un fantasma que solo abre armarios, ¿está asustando o ayudando? | Asustando. Nadie le pidió nada. | Ayudando. Está aireando la ropa.
+4 restaurantes | Si una paloma entra en un restaurante, ¿es cliente o incidente? | Cliente. Ha entrado por su pie. | Incidente. No ha reservado.
+4 sueño | ¿Se puede estar enfadado con alguien por lo que hizo en tu sueño? | Sí. Tú lo viste. | No. Fue tu cerebro el que lo escribió.
+4 familia | Si heredas un elefante, ¿rechazarlo es de mala educación? | Sí. Un regalo es un regalo. | No. Un elefante es una hipoteca.
+3 casa | ¿Las plantas del balcón son mascotas o muebles? | Mascotas. Comen, beben y se mueren si las olvidas. | Muebles. No vienen cuando las llamas.
+4 animales | Si un pulpo sabe abrir botes, ¿puede trabajar de cocinero? | Sí. Tiene ocho manos y disciplina. | No. Se comería a los compañeros.
+4 identidad | Si tu reflejo te guiña un ojo, ¿lo cuentas o te lo callas? | Lo cuentas. Es noticia. | Te lo callas. Nadie te creería.
+4 vecinos | ¿La luna es un vecino de arriba o un objeto decorativo? | Vecino. Se asoma cada noche. | Decoración. No paga comunidad.
+4 comida | ¿Un sándwich cortado en triángulos sabe mejor? | Sí. El triángulo es un formato superior. | No. Es el mismo sándwich con pretensiones.
+4 animales | Si una tortuga lleva 40 años en una familia, ¿es mascota o abuela? | Mascota. Vive en un terrario. | Abuela. Ha visto nacer a todos.
+4 vecinos | Si descubres que tu vecino es un robot, ¿le sigues prestando azúcar? | Sí. Un buen vecino es un buen vecino. | No. ¿Para qué quiere azúcar un robot?
+4 animales | Un pato que sabe abrir puertas, ¿debería tener su propia llave? | Sí. Es una cuestión de dignidad. | No. Ya tiene demasiado poder.
+4 musica | Si una canción se te pega tres días, ¿tiene derecho a salir en tu biografía? | Sí. Ha vivido contigo. | No. Fue un okupa.
+4 casa | ¿Un robot aspirador que se atasca siempre en la misma esquina es tonto o rebelde? | Tonto. No aprende. | Rebelde. Le gusta esa esquina.
+4 animales | Si un gato te trae un ratón, ¿es un regalo o una amenaza? | Un regalo. Es lo mejor que tiene. | Una amenaza. Te está enseñando lo que sabe hacer.
+4 casa | Si el microondas pita y nadie va, ¿se ofende? | Sí. Por eso pita otra vez. | No. Pita porque no sabe hacer otra cosa.
+4 viajes | ¿Las palomas que viven en el aeropuerto son viajeras frecuentes? | Sí. Nadie pasa más tiempo allí. | No. Nunca han embarcado.
+4 animales | Un perro con abrigo, ¿va vestido o va disfrazado? | Vestido. Tiene frío como todos. | Disfrazado. Un perro no es de abrigos.
+4 casa | Si un fantasma deja la luz encendida, ¿quién paga? | El fantasma. La ha encendido él. | Nosotros. El fantasma no tiene cuenta bancaria.
+4 tiempo | Si llueve solo sobre ti, ¿es mala suerte o es un servicio? | Mala suerte. Nadie lo pidió. | Un servicio. Ducha gratis y sin esperas.
+4 vecinos | ¿Un ascensor que se para en todos los pisos está roto o es sociable? | Roto. Hay que llamar al técnico. | Sociable. Quiere conocer a todo el mundo.
+4 animales | Si una ardilla te roba una nuez cada día durante un año, ¿es ladrona o socia? | Ladrona. 365 nueces son un delito. | Socia. Ya es parte del presupuesto.
+4 tiempo | Si viajas al pasado y te robas tu propia bici, ¿es robo? | Sí. La bici era de otra persona entonces. | No. Siempre ha sido tuya.
+4 animales | Si un dinosaurio apareciera en el salón, ¿lo paseas o llamas a alguien? | Lo paseas. Todo animal necesita salir. | Llamas a alguien. No es tu dinosaurio.
+4 vecinos | ¿Un árbol de nuestra calle cuenta como vecino? | Sí. Lleva aquí más que nadie. | No. Nunca ha subido a una reunión.
+4 comida | Si alguien te invita a cenar y el plato es increíble pero se olvidó de tu nombre, ¿ha sido una buena cena? | Sí. Lo importante es el plato. | No. Lo importante es saber a quién cocinas.
+4 objetos | Si un mago te hace desaparecer y vuelves con otro peinado, ¿es un favor o un delito? | Un favor. Peluquería gratis. | Un delito. Nadie pidió peinado.
+4 identidad | Si un desconocido te sonríe en un sueño tres noches seguidas, ¿ya es tu amigo? | Sí. Tres veces es una relación. | No. Es un figurante que repite.
 
 ## caos caos
 2 any | Abogado | Durante las próximas dos cartas, cada uno puede *impugnar* una respuesta del otro. Quien sea impugnado tiene 15 segundos para defenderla o cambiarla.
@@ -511,7 +535,7 @@ const SRC = String.raw`
 1 any | Pregunta extra | Después de la siguiente carta, el otro inventa una pregunta relacionada y tienes que contestarla.
 1 any | Al revés | La siguiente carta se responde al revés: primero el porqué, después la respuesta.
 0 now | Confesión menor | Ahora mismo, cada uno confiesa algo pequeñísimo que nunca había mencionado. Nada grave.
-1 juicio | Jurado familiar | En el próximo Juicio, el veredicto lo dan vuestras madres: cada uno dice qué votaría la suya.
+1 juicio | Jurado familiar | Después del próximo Juicio, cada uno dice qué postura habría defendido su madre, y por qué.
 1 any | Tres palabras | Antes de la siguiente respuesta, el otro elige tres palabras que tienes que usar en ella.
 1 any | Sin pensar | La siguiente respuesta se da sin pararse a pensar. Si dudas más de tres segundos, empiezas de nuevo.
 1 any | Eco | Después de la siguiente respuesta, el otro intenta repetirla con tus mismas palabras.

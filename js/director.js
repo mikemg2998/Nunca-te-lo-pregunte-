@@ -74,6 +74,8 @@ function pick(game, ctx) {
   const recent = H.slice(-5), recentTags = new Set(recent.flatMap(h => h.tags));
   const recentCats = new Set(H.slice(-2).map(h => h.cat)), recentOpen = new Set(H.slice(-4).map(h => h.open));
   const lowRun = last && last2 && last.r <= 2 && last2.r <= 2;
+  // «¿Qué prefieres?» debe ser un formato reconocible: si lleva 6 cartas sin salir, sube; si acaba de salir, baja.
+  const sincePref = (() => { for (let k = 1; k <= H.length; k++) if (H[H.length - k].cat === 'pref') return k; return 99; })();
   let cands = pool.filter(c => c.mech === mech);
   const score = c => {
     let w = 1;
@@ -83,6 +85,7 @@ function pick(game, ctx) {
     if (M.shortOnly) w *= c.len > 130 ? .2 : c.len > 95 ? .6 : 1.2;
     if (ctx.seen && ctx.seen.has(c.id)) w *= .04;
     if (recentCats.has(c.cat)) w *= .1;
+    if (c.cat === 'pref') w *= sincePref >= 6 ? 6 : sincePref <= 2 ? .1 : 1.6;
     let overlap = 0; for (const t of c.tags) if (recentTags.has(t)) overlap++;
     if (overlap) w *= Math.pow(.25, overlap);
     if (recentOpen.has(c.open)) w *= .12;

@@ -10,7 +10,7 @@ let fails = [];
 const report = {};
 for (const mode of Object.keys(D.MODES).filter(m => m !== 'favs')) {
   const seen = new Set();
-  const stats = { mech: {}, maxSameMech: 0, sameCatAdj: 0, r5pairs: 0, openRepeat: 0, caosPerGame: 0, r: [0, 0, 0, 0, 0, 0], unseenShare: 0, cards: 0 };
+  const stats = { mech: {}, maxSameMech: 0, sameCatAdj: 0, r5pairs: 0, openRepeat: 0, caosPerGame: 0, prefPerGame: 0, r: [0, 0, 0, 0, 0, 0], unseenShare: 0, cards: 0 };
   for (let g = 0; g < N; g++) {
     const rng = mulberry(g * 7919 + mode.length);
     const game = D.newGame({ mode, length: LEN });
@@ -37,9 +37,12 @@ for (const mode of Object.keys(D.MODES).filter(m => m !== 'favs')) {
       }
     }
     stats.caosPerGame += h.filter(x => x.mech === 'caos').length;
+    stats.prefPerGame += h.filter(x => x.cat === 'pref').length;
     if (new Set(h.map(x => x.id)).size !== h.length) fails.push(`${mode}: carta repetida dentro de una partida`);
   }
   stats.caosPerGame = +(stats.caosPerGame / N).toFixed(2);
+  stats.prefPerGame = +(stats.prefPerGame / N).toFixed(2);
+  if (mode === 'random' && stats.prefPerGame < 2.5) fails.push(`random: solo ${stats.prefPerGame} «qué prefieres» por partida`);
   stats.unseenShare = Math.round(stats.unseenShare / N * 100) + '%';
   for (const k in stats.mech) stats.mech[k] = Math.round(stats.mech[k] / stats.cards * 100) + '%';
   stats.r = stats.r.slice(1).map(x => Math.round(x / stats.cards * 100) + '%').join(' ');
