@@ -135,19 +135,16 @@ body.fixed .stage .actions{margin-top:10px;flex:none}
 .btn.ghost{background:transparent}
 .link{border:0;background:none;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:12px 0;min-height:44px}
 
-/* inicio */
+/* inicio: símbolo → Let’s Talk → una frase → Empezar */
 .home{display:flex;flex-direction:column;flex:1;min-height:0;padding-top:8px}
-.deck{position:relative;height:236px;margin:22px auto 0;width:166px}
-.deck div{position:absolute;inset:0;border-radius:16px;border:1px solid var(--line);background:linear-gradient(170deg,#1b1815,var(--card));box-shadow:0 20px 40px -18px #000}
-.deck div:nth-child(1){transform:rotate(-9deg) translate(-18px,8px);opacity:.5}
-.deck div:nth-child(2){transform:rotate(6deg) translate(16px,4px);opacity:.75}
-.deck div:nth-child(3){display:flex;align-items:center;justify-content:center;border-color:var(--line-2);animation:float 6s ease-in-out infinite}
-.deck div:nth-child(3)::before{content:"";position:absolute;inset:8px;border:1px solid rgba(226,190,112,.1);border-radius:10px}
-.deck span{font-size:104px;color:var(--gold);line-height:1;font-weight:300;font-style:italic}
-@keyframes float{50%{transform:translateY(-6px) rotate(-1deg)}}
-.home h1{font-weight:660;font-size:clamp(40px,11.5vw,48px);line-height:1;margin:38px 0 0;letter-spacing:-.035em}
-.home h1 em{font-style:italic;font-weight:400;color:var(--gold-2)}
-.home .tag{font-size:18px;line-height:1.4;color:var(--muted);margin:16px 0 0;font-weight:320;max-width:28ch}
+.key{fill:none;stroke:currentColor;stroke-width:13.5;stroke-linejoin:round}
+.mark{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.mark .key{position:relative;width:100%;height:100%}
+.halo{position:absolute;left:50%;top:50%;width:260%;height:260%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(242,163,46,.28) 0%,rgba(242,163,46,.1) 32%,rgba(242,163,46,0) 68%);pointer-events:none}
+.home .sym{width:64px;height:64px;color:var(--gold-2);margin:clamp(40px,14vh,110px) 0 0}
+.home .sym .halo{opacity:.45;width:200%;height:200%}
+.wordmark{font-weight:700;font-size:clamp(58px,17vw,74px);line-height:.95;margin:30px 0 0;letter-spacing:-.045em;color:var(--cream)}
+.home .tag{font-size:19px;line-height:1.35;color:var(--muted);margin:14px 0 0;font-weight:340;max-width:24ch}
 .home .actions{margin-top:auto;padding-top:30px}
 .links{display:flex;justify-content:space-around;gap:8px}
 
@@ -187,6 +184,7 @@ input[type=text]{width:100%;min-width:0;height:46px;border-radius:12px;border:1p
 .seg button{flex:1;min-height:40px;border:0;background:transparent;color:var(--muted);font-size:14px;font-weight:500;border-radius:9px}
 .seg button.on{background:var(--cream);color:#14110c}
 .set p{margin:0;font-size:14px;color:var(--cream-2);line-height:1.5;font-weight:360}
+.about{margin:26px 0 0;font-size:12px;color:var(--dim);font-weight:400;letter-spacing:.02em}.about b{font-weight:600;color:var(--muted)}
 
 /* hoja de menú */
 .sheet{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s ease}
@@ -208,4 +206,16 @@ input[type=text]{width:100%;min-width:0;height:46px;border-radius:12px;border:1p
 .devbar button{flex:none;border:1px dashed #3a3530;background:none;color:var(--muted);font-size:11px;padding:5px 10px;border-radius:999px}
 .devbar button.on{border-style:solid;color:var(--cream)}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* splash: fondo carbón, el ojo aparece, el halo respira una vez, aparece el nombre, y se entra */
+.splash{position:fixed;inset:0;z-index:60;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;transition:opacity .42s ease;pointer-events:none}
+.splash.out{opacity:0}
+.splash .mark{width:92px;height:92px;color:#fdf3d9;opacity:0;animation:key-in .5s ease-out .1s forwards}
+.splash .halo{width:250%;height:250%;opacity:0;animation:breathe 1.3s ease-in-out .2s forwards}
+.splash b{font-weight:700;font-size:44px;letter-spacing:-.045em;line-height:1;color:var(--cream);opacity:0;transform:translateY(6px);animation:word-in .45s ease-out .55s forwards}
+.splash.short .mark{animation-duration:.3s;animation-delay:0s}
+.splash.short .halo{animation-duration:.8s;animation-delay:0s}
+.splash.short b{animation-delay:.12s;animation-duration:.3s}
+@keyframes key-in{to{opacity:1}}
+@keyframes breathe{0%{opacity:0;transform:translate(-50%,-50%) scale(.85)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}}
+@keyframes word-in{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.splash .mark,.splash b{opacity:1;transform:none;animation:none}.splash .halo{opacity:.5;animation:none}.splash{transition-duration:.2s!important}}

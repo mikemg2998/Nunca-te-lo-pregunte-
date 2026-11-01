@@ -1,7 +1,7 @@
 {
-  "name": "Nunca te lo pregunté",
-  "short_name": "Nunca te lo pregunté",
-  "description": "Un juego de cartas para dos personas que creen que ya se lo han preguntado todo.",
+  "name": "Let’s Talk",
+  "short_name": "Let’s Talk",
+  "description": "Nunca te lo pregunté. Un juego para dos personas que creen conocerse y todavía tienen cosas por descubrir.",
   "lang": "es",
   "start_url": "./",
   "scope": "./",
@@ -10,8 +10,8 @@
   "background_color": "#0a0908",
   "theme_color": "#0a0908",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]
 }

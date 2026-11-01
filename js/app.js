@@ -1,4 +1,4 @@
-/* Interfaz de «Nunca te lo pregunté». El teléfono presenta la chispa; las personas hacen el resto. */
+/* Interfaz de Let’s Talk (antes «Nunca te lo pregunté»). El teléfono presenta la chispa; las personas hacen el resto. */
 (function () {
 const { CARDS } = window.NTP_CARDS;
 const D = window.NTP_DIRECTOR;
@@ -157,10 +157,10 @@ function toggleFav(id) {
 /* ---------- pantallas ---------- */
 function homeView() {
   return `<section class="home">
-    <div class="deck" aria-hidden="true"><div></div><div></div><div><span>?</span></div></div>
-    <h1>Nunca te lo <em>pregunté</em></h1>
-    <p class="tag">Después de tantos años, todavía quedan preguntas.</p>
-    <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Leeeeeet’s go</button>
+    <span class="mark sym" aria-hidden="true"><i class="halo"></i><svg class="key" viewBox="0 0 512 512" aria-hidden="true"><path d="M215 247.6 188 384h136l-27-136.4A74 74 0 1 0 215 247.6Z"/></svg></span>
+    <h1 class="wordmark">Let’s Talk</h1>
+    <p class="tag">Todavía quedan cosas por descubrir.</p>
+    <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Empezar</button>
       <div class="links"><button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
   </section>`;
 }
@@ -263,7 +263,8 @@ function settingsView() {
   <div class="set"><span>Tiempo de los juicios</span>${seg('judge', [[0, 'Sin tiempo'], [30, '30 s'], [60, '60 s']])}</div>
   <div class="set"><span>Vibración</span>${seg('haptics', [[true, 'Sí'], [false, 'No']])}</div>
   <div class="set"><span>Historial</span><p>Habéis visto ${S.seen.size} de ${CARDS.length} cartas. Las que no habéis visto salen antes, y las recientes tardan en volver.</p>
-    ${S.confirmReset ? `<div class="pills"><button class="pill on" data-a="reset">Sí, reiniciar</button><button class="pill" data-a="noreset">Cancelar</button></div>` : `<button class="btn ghost" data-a="askreset">Reiniciar historial</button>`}</div>`;
+    ${S.confirmReset ? `<div class="pills"><button class="pill on" data-a="reset">Sí, reiniciar</button><button class="pill" data-a="noreset">Cancelar</button></div>` : `<button class="btn ghost" data-a="askreset">Reiniciar historial</button>`}</div>
+  <p class="about"><b>Let’s Talk</b> · Nunca te lo pregunté.</p>`;
 }
 
 function render(anim) {
@@ -429,4 +430,13 @@ if (S.devOn) window.__ntp = S;
 window.addEventListener('hashchange', () => { S.devOn = location.hash === '#dev'; if (S.screen === 'play') render(); });
 attachBackGesture();
 render();
+/* Entrada: el ojo de cerradura respira una vez y aparece el nombre. Tras la primera visita dura menos; con reduced-motion apenas se ve. */
+(function splash() {
+  const el = document.getElementById('splash'); if (!el) return;
+  const seen = store.get('seen-splash', false); store.set('seen-splash', true);
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (seen) el.classList.add('short');
+  const total = still ? 350 : seen ? 1050 : 1750;
+  later(() => { el.classList.add('out'); afterAnim(el, 'transitionend', () => el.remove(), 500); }, total);
+})();
 })();

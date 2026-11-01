@@ -1,4 +1,6 @@
-# Nunca te lo pregunté
+# Let’s Talk
+
+*Nunca te lo pregunté.* Un juego para dos personas que creen conocerse y todavía tienen cosas por descubrir. El símbolo es un ojo de cerradura: promete que hay algo detrás; la pregunta lo abre; la conversación hace el resto.
 
 Juego de cartas para dos personas que llevan años juntas y creen que ya se lo han preguntado todo.
 Web estática instalable en el móvil (Añadir a pantalla de inicio).
