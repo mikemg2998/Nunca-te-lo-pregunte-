@@ -1,12 +1,15 @@
-// Genera una sola página (sin <html>/<head>) para publicarla como Artifact.
+// Genera una sola página (sin <html>/<head>) para publicarla como Artifact. Las fuentes van incrustadas en base64.
 const fs = require('fs'), path = require('path');
 const R = p => fs.readFileSync(path.join(__dirname, '..', p), 'utf8');
+const B64 = p => 'data:font/woff2;base64,' + fs.readFileSync(path.join(__dirname, '..', p)).toString('base64');
+const css = R('styles.css')
+  .replace('url(fonts/GeneralSans-Variable.woff2)', `url(${B64('fonts/GeneralSans-Variable.woff2')})`)
+  .replace('url(fonts/GeneralSans-VariableItalic.woff2)', `url(${B64('fonts/GeneralSans-VariableItalic.woff2')})`);
 const out = `<title>Nunca te lo pregunté</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" content="#0a0908">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-${R('styles.css')}
+${css}
 </style>
 <main class="app" id="app"></main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
