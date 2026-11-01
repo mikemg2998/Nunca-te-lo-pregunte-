@@ -148,8 +148,8 @@ function homeView() {
     <div class="deck" aria-hidden="true"><div></div><div></div><div><span>?</span></div></div>
     <h1>Nunca te lo <em>pregunté</em></h1>
     <p class="tag">Después de tantos años, todavía quedan preguntas.</p>
-    <div class="actions"><button class="btn primary" data-a="${S.game ? 'continue' : 'go'}" data-v="modes">Leeeeeet’s go</button>
-      <div class="links">${S.game ? '<button class="link" data-a="go" data-v="modes">Otra mezcla</button>' : ''}<button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
+    <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Leeeeeet’s go</button>
+      <div class="links">${S.game ? '<button class="link" data-a="continue">Seguir donde estábamos</button>' : ''}<button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
   </section>`;
 }
 function modesView() {
