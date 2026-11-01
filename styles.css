@@ -146,7 +146,7 @@ body.fixed .stage .actions{margin-top:10px;flex:none}
 .home .sym .halo{opacity:.5;width:170%;height:170%}
 .home .actions{align-self:stretch}
 .wordmark{font-weight:700;font-size:clamp(58px,17vw,74px);line-height:.95;margin:22px 0 0;letter-spacing:-.045em;color:var(--cream)}
-.home .tag{font-size:18px;line-height:1.35;color:var(--muted);margin:14px auto 0;font-weight:340;max-width:26ch;text-wrap:balance}
+.home .tag{font-size:18px;line-height:1.35;color:var(--muted);margin:14px auto 0;font-weight:340;max-width:none}
 .home .actions{margin-top:auto;padding-top:30px}
 .links{display:flex;justify-content:space-around;gap:8px}
 
