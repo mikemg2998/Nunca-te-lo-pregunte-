@@ -51,6 +51,42 @@ for (const mode of Object.keys(D.MODES).filter(m => m !== 'favs')) {
   delete stats.cards; report[mode] = stats;
 }
 console.table(report);
+
+// Tipos de carta elegidos a mano: el director debe servir solo ese tipo y no quedarse sin cartas.
+const FILTERS = [
+  ['pref', { mechs: ['libre'], cats: ['pref'] }], ['saber', { mechs: ['libre'], cats: ['obs'] }], ['hipo', { mechs: ['libre'], cats: ['hip', 'mini', 'esp'] }],
+  ['exis', { mechs: ['libre'], cats: ['exis'] }], ['lore', { mechs: ['libre'], cats: ['lore', 'ctx', 'tit', 'expl', 'acus'] }], ['teo', { mechs: ['libre'], cats: ['teo', 'rank', 'comp'] }],
+  ['rapida', { mechs: ['rapida'] }], ['predice', { mechs: ['predice'] }], ['alavez', { mechs: ['alavez'] }], ['juicio', { mechs: ['juicio'] }],
+];
+for (const [name, filter] of FILTERS) {
+  for (let g = 0; g < 20; g++) {
+    const rng = mulberry(g * 131 + name.length);
+    const game = Object.assign(D.newGame({ mode: 'random', length: LEN }), { filter });
+    const size = CARDS.filter(c => filter.mechs.includes(c.mech) && (!filter.cats || filter.cats.includes(c.cat))).length;
+    for (let i = 0; i < Math.min(LEN, size); i++) {
+      const c = D.pick(game, { cards: CARDS, seen: new Set(), rule: null, rng });
+      if (!c) { fails.push(`tipo ${name}: sin carta en la posición ${i}`); break; }
+      if (!filter.mechs.includes(c.mech) || (filter.cats && !filter.cats.includes(c.cat))) fails.push(`tipo ${name}: carta fuera del tipo (${c.mech}/${c.cat})`);
+      D.record(game, c);
+    }
+  }
+}
+
+// Memoria entre partidas: las cartas de la partida anterior casi no deben volver en la siguiente.
+let overlap = 0, trials = 0;
+for (let t = 0; t < 40; t++) {
+  const rng = mulberry(t * 977 + 5);
+  let recent = [];
+  for (let g = 0; g < 3; g++) {
+    const game = D.newGame({ mode: 'random', length: LEN });
+    for (let i = 0; i < LEN; i++) { const c = D.pick(game, { cards: CARDS, seen: new Set(), rule: null, recent, rng }); D.record(game, c); }
+    if (recent.length) { const prev = new Set(recent[0]); overlap += game.used.filter(id => prev.has(id)).length; trials++; }
+    recent.unshift(game.used.slice());
+  }
+}
+const repeatRate = overlap / (trials * LEN);
+console.log('Repetición respecto a la partida anterior:', (repeatRate * 100).toFixed(1) + '%');
+if (repeatRate > .04) fails.push(`memoria entre partidas: ${(repeatRate * 100).toFixed(1)}% de cartas repetidas de la partida anterior`);
 const bank = {}; CARDS.forEach(c => bank[c.mech] = (bank[c.mech] || 0) + 1);
 console.log('Banco:', bank, 'total', CARDS.length);
 if (fails.length) { console.log('✗ Fallos:\n' + [...new Set(fails)].slice(0, 20).join('\n')); process.exit(1); }

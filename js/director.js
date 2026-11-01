@@ -37,13 +37,19 @@ function newGame(opts) {
   return { mode: opts.mode || 'random', length: opts.length || 25, history: [], used: [], pool: opts.pool || null };
 }
 
-/* ctx: { cards, seen:Set, rule, allowWrite, rng } */
+/* ctx: { cards, seen:Set, rule, recent:[[ids de la última partida], [anterior], ...], rng }
+ * game.filter: { mechs:[...], cats:[...] } restringe el mazo a un tipo de carta elegido a mano. */
 function pick(game, ctx) {
   const rng = ctx.rng || Math.random;
   const M = MODES[game.mode] || MODES.random;
   const used = new Set(game.used);
-  const pool = (game.pool ? ctx.cards.filter(c => game.pool.includes(c.id)) : ctx.cards).filter(c => !used.has(c.id));
+  const F = game.filter;
+  const pool = (game.pool ? ctx.cards.filter(c => game.pool.includes(c.id)) : ctx.cards)
+    .filter(c => !used.has(c.id) && (!F || ((!F.mechs || F.mechs.includes(c.mech)) && (!F.cats || F.cats.includes(c.cat)))));
   if (!pool.length) return null;
+  // memoria entre partidas: cuanto más reciente, más tarda en volver (penalización fuerte pero temporal)
+  const recentPen = new Map();
+  (ctx.recent || []).forEach((ids, k) => { const pen = [.03, .08, .2, .4, .6, .8][k] || 1; ids.forEach(id => { if (!recentPen.has(id)) recentPen.set(id, pen); }); });
   const H = game.history, pos = H.length, last = H[H.length - 1], last2 = H[H.length - 2];
   const ruleActive = ctx.rule && ctx.rule.left > 0;
 
@@ -71,8 +77,10 @@ function pick(game, ctx) {
   }
 
   // 2 · carta
-  const recent = H.slice(-5), recentTags = new Set(recent.flatMap(h => h.tags));
-  const recentCats = new Set(H.slice(-2).map(h => h.cat)), recentOpen = new Set(H.slice(-4).map(h => h.open));
+  const recent = H.slice(-6), recentTags = new Set(recent.flatMap(h => h.tags));
+  const recentCats = new Set(H.slice(-2).map(h => h.cat)), recentOpen = new Set(H.slice(-6).map(h => h.open));
+  const gameTags = new Map(); H.forEach(h => h.tags.forEach(t => gameTags.set(t, (gameTags.get(t) || 0) + 1)));
+  const single = F && F.mechs && F.mechs.length === 1 && (!F.cats || F.cats.length === 1); // un solo tipo: no castigar lo inevitable
   const lowRun = last && last2 && last.r <= 2 && last2.r <= 2;
   // «¿Qué prefieres?» debe ser un formato reconocible: si lleva 6 cartas sin salir, sube; si acaba de salir, baja.
   const sincePref = (() => { for (let k = 1; k <= H.length; k++) if (H[H.length - k].cat === 'pref') return k; return 99; })();
@@ -84,10 +92,14 @@ function pick(game, ctx) {
     if (M.rar) w *= M.rar[c.r];
     if (M.shortOnly) w *= c.len > 130 ? .2 : c.len > 95 ? .6 : 1.2;
     if (ctx.seen && ctx.seen.has(c.id)) w *= .04;
-    if (recentCats.has(c.cat)) w *= .1;
-    if (c.cat === 'pref') w *= sincePref >= 6 ? 6 : sincePref <= 2 ? .1 : 1.6;
+    if (recentPen.has(c.id)) w *= recentPen.get(c.id);
+    if (!single) {
+      if (recentCats.has(c.cat)) w *= .1;
+      if (c.cat === 'pref') w *= sincePref >= 6 ? 6 : sincePref <= 2 ? .1 : 1.6;
+    }
     let overlap = 0; for (const t of c.tags) if (recentTags.has(t)) overlap++;
     if (overlap) w *= Math.pow(.25, overlap);
+    for (const t of c.tags) { const n = gameTags.get(t) || 0; if (n >= 2) w *= .5; } // mismo tema varias veces en la partida
     if (recentOpen.has(c.open)) w *= .12;
     if (last) {
       if (last.r >= 4 && c.r >= 4) w *= .2;
