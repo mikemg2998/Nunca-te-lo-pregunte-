@@ -18,9 +18,9 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html,body{background:var(--ink);color:var(--cream);height:100%}
+html,body{background:var(--ink);color:var(--cream);min-height:100%}
 body{margin:0;font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:0 24px;
+  padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:0 calc(40px + env(safe-area-inset-bottom,0px));
   background-image:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(214,168,62,.045),transparent 70%);background-attachment:fixed}
 button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 button:focus-visible,input:focus-visible{outline:1.5px solid var(--gold);outline-offset:3px}
@@ -32,7 +32,7 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 
 .app.in{animation:screenIn .22s ease both}
 @keyframes screenIn{from{opacity:0}to{opacity:1}}
-.app{max-width:440px;margin:0 auto;padding-top:calc(env(safe-area-inset-top,0px) + 12px);min-height:100%;display:flex;flex-direction:column}
+.app{max-width:440px;margin:0 auto;padding-top:calc(env(safe-area-inset-top,0px) + 12px);min-height:calc(100dvh - 40px - env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
 
 /* cabecera de partida: mínima */
 .g-head{display:flex;align-items:center;gap:12px;height:44px}
@@ -47,7 +47,7 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 
 /* escenario: la carta no tiene marco; es la página */
 .stage{margin-top:18px}
-body.fixed{position:fixed;inset:0;height:100dvh;overflow:hidden;overscroll-behavior:none;padding-bottom:0}
+body.fixed{position:fixed;inset:0;height:100dvh;min-height:0;overflow:hidden;overscroll-behavior:none;padding-bottom:0}
 body.fixed .app{height:100%;min-height:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
 body.fixed .stage{flex:1;display:flex;flex-direction:column;min-height:0;margin-top:10px}
 body.fixed .card{flex:1;display:flex;flex-direction:column;min-height:0}
