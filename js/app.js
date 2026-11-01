@@ -58,14 +58,14 @@ const store = {
   set(k, v) { try { localStorage.setItem('ntp.' + k, JSON.stringify(v)); } catch (e) {} },
   del(k) { try { localStorage.removeItem('ntp.' + k); } catch (e) {} },
 };
-const DEF = { p1: '', p2: '', judge: 0, length: 25, rarity: false, haptics: true };
+const DEF = { p1: '', p2: '', judge: 0, rarity: false, haptics: true };
 const S = {
   screen: 'home',
   settings: Object.assign({}, DEF, store.get('settings', {})),
   favs: store.get('favs', []),
   seen: new Set(store.get('seen', [])),
   game: store.get('game', null),
-  recent: store.get('recent', []), // cartas de las últimas partidas, de la más reciente a la más antigua
+  recent: store.get('recent', []), // bloques de 25 cartas recientes, del más nuevo al más viejo: tardan en volver
   mode: 'random', type: null,
   card: null, step: null, tmp: {}, from: 'home', dev: null, confirmReset: false,
 };
@@ -92,27 +92,25 @@ const plural = (n, a, b) => n === 1 ? a : b;
 function startGame(mode, pool, type) {
   const t = type ? TYPE_BY[type] : null;
   const filter = t ? t[4] : null;
-  const size = filter ? CARDS.filter(c => filter.mechs.includes(c.mech) && (!filter.cats || filter.cats.includes(c.cat))).length : Infinity;
-  S.game = { mode, type: type || null, label: t ? t[2] : D.MODES[mode].name, filter,
-    length: Math.min(S.settings.length, pool ? pool.length : size), history: [], used: [], pool: pool || null,
-    started: Date.now(), turn: 0, rule: null,
-    stats: { answered: 0, saved: 0, juicios: 0, caos: 0, passed: 0 }, cur: null };
+  S.game = { mode, type: type || null, label: t ? t[2] : D.MODES[mode].name, filter, history: [], used: [], pool: pool || null,
+    started: Date.now(), turn: 0, rule: null, cur: null };
   nextCard(true);
 }
 function drawCard() {
   const g = S.game;
   let ctxCards = CARDS;
   if (S.dev) ctxCards = CARDS.filter(c => c.mech === S.dev);
-  const c = D.pick(g, { cards: ctxCards, seen: S.seen, rule: g.rule, recent: S.recent });
+  let c = D.pick(g, { cards: ctxCards, seen: S.seen, rule: g.rule, recent: S.recent });
+  if (!c) { g.used = []; g.history = g.history.slice(-8); c = D.pick(g, { cards: ctxCards, seen: S.seen, rule: g.rule, recent: S.recent }); } // mazo agotado: se vuelve a barajar
   if (!c) return null;
   D.record(g, c); g.cur = c.id;
+  if (g.used.length % 25 === 0) { S.recent.unshift(g.used.slice(-25)); S.recent = S.recent.slice(0, 6); saveRecent(); }
   return c;
 }
 function nextCard(first) {
   cancelAll();
-  if (S.game.history.length >= S.game.length) return endGame();
   const c = drawCard();
-  if (!c) return endGame();
+  if (!c) { toast('No hay cartas de este tipo'); S.game = null; saveGame(); S.screen = 'modes'; render(true); return; }
   S.card = c; S.step = firstStep(c); S.tmp = {};
   S.screen = 'play'; saveGame(); render(true);
   if (c.mech === 'caos') buzz(12);
@@ -126,9 +124,6 @@ function leave(then) {
 }
 function finish(outcome) {
   const g = S.game, c = S.card; if (!g || !c || S.leaving) return;
-  if (outcome === 'answered' && c.mech !== 'caos') g.stats.answered++;
-  if (outcome === 'passed') g.stats.passed++;
-  if (c.mech === 'juicio' && outcome === 'answered') g.stats.juicios++;
   S.seen.add(c.id); saveSeen();
   if (c.mech !== 'caos' && g.rule) {
     const r = g.rule;
@@ -138,17 +133,12 @@ function finish(outcome) {
   if (['predice', 'alavez', 'juicio'].includes(c.mech)) g.turn++;
   leave(nextCard);
 }
-function endGame() {
-  cancelAll(); S.leaving = false;
-  if (S.game && S.game.used.length) { S.recent.unshift(S.game.used.slice()); S.recent = S.recent.slice(0, 6); saveRecent(); }
-  S.last = S.game; S.game = null; saveGame(); S.screen = 'end'; render(true);
-}
 
 /* ---------- favoritas ---------- */
 function toggleFav(id) {
   const i = S.favs.indexOf(id);
-  if (i >= 0) { S.favs.splice(i, 1); toast('Quitada de favoritas'); if (S.game) S.game.stats.saved = Math.max(0, S.game.stats.saved - 1); }
-  else { S.favs.unshift(id); toast('Guardada'); if (S.game && S.screen === 'play') S.game.stats.saved++; }
+  if (i >= 0) { S.favs.splice(i, 1); toast('Quitada de favoritas'); }
+  else { S.favs.unshift(id); toast('Guardada'); }
   saveFavs(); saveGame();
   document.querySelectorAll(`.mark[data-id="${id}"]`).forEach(b => b.classList.toggle('on', S.favs.includes(id)));
 }
@@ -159,8 +149,8 @@ function homeView() {
     <div class="deck" aria-hidden="true"><div></div><div></div><div><span>?</span></div></div>
     <h1>Nunca te lo <em>pregunté</em></h1>
     <p class="tag">Después de tantos años, todavía quedan preguntas.</p>
-    <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Nueva partida</button>
-      <div class="links">${S.game ? '<button class="link" data-a="continue">Continuar</button>' : ''}<button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
+    <div class="actions"><button class="btn primary" data-a="${S.game ? 'continue' : 'go'}" data-v="modes">${S.game ? 'Seguir jugando' : 'Jugar'}</button>
+      <div class="links">${S.game ? '<button class="link" data-a="go" data-v="modes">Otra mezcla</button>' : ''}<button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
   </section>`;
 }
 function modesView() {
@@ -179,7 +169,6 @@ function loadingView() { return `<div class="loading">${S.loadingText}</div>`; }
 
 function head() {
   const g = S.game, label = g.label || D.MODES[g.mode].name;
-  const n = Math.min(g.history.length, g.length);
   let rule = '';
   if (g.rule) {
     const r = g.rule, pips = '<i></i>'.repeat(Math.max(0, r.left));
@@ -188,8 +177,7 @@ function head() {
   }
   const dev = S.devOn ? `<div class="devbar">${['', 'libre', 'rapida', 'predice', 'alavez', 'juicio', 'caos'].map(m => `<button class="${(S.dev || '') === m ? 'on' : ''}" data-a="dev" data-v="${m}">${m || 'director'}</button>`).join('')}</div>` : '';
   return `${dev}<header class="g-head"><button class="ibtn" data-a="menu" aria-label="Menú">${ic('close')}</button>
-    <div class="g-meta"><span>${esc(label)}</span><span class="n"><b>${n}</b> / ${g.length}</span></div></header>
-    <div class="prog"><i style="width:${n / g.length * 100}%"></i></div>${rule}`;
+    <div class="g-meta"><span>${esc(label)}</span></div></header>${rule}`;
 }
 function qClass(c) { const n = c.len; return n > 150 ? 'q long' : n < 70 ? 'q short' : 'q'; }
 function cardTop(c, label) {
@@ -260,29 +248,14 @@ function settingsView() {
   <h2 class="h2">Ajustes</h2>
   <div class="set"><span>Nombres</span><div class="names" style="margin:0"><input id="s1" type="text" maxlength="16" placeholder="Jugador 1" aria-label="Nombre del jugador 1" value="${esc(S.settings.p1)}" data-set="p1"><input id="s2" type="text" maxlength="16" placeholder="Jugador 2" aria-label="Nombre del jugador 2" value="${esc(S.settings.p2)}" data-set="p2"></div></div>
   <div class="set"><span>Tiempo de los juicios</span>${seg('judge', [[0, 'Sin tiempo'], [30, '30 s'], [60, '60 s']])}</div>
-  <div class="set"><span>Cartas por partida</span>${seg('length', [[15, '15'], [25, '25'], [40, '40']])}</div>
   <div class="set"><span>Mostrar la rareza de cada carta</span>${seg('rarity', [[false, 'No'], [true, 'Sí']])}</div>
   <div class="set"><span>Vibración</span>${seg('haptics', [[true, 'Sí'], [false, 'No']])}</div>
-  <div class="set"><span>Historial</span><p>Habéis visto ${S.seen.size} de ${CARDS.length} cartas. Las que no habéis visto salen antes, y las de las últimas partidas tardan en volver.</p>
+  <div class="set"><span>Historial</span><p>Habéis visto ${S.seen.size} de ${CARDS.length} cartas. Las que no habéis visto salen antes, y las recientes tardan en volver.</p>
     ${S.confirmReset ? `<div class="pills"><button class="pill on" data-a="reset">Sí, reiniciar</button><button class="pill" data-a="noreset">Cancelar</button></div>` : `<button class="btn ghost" data-a="askreset">Reiniciar historial</button>`}</div>`;
-}
-function endView() {
-  const g = S.last; if (!g) return homeView();
-  const s = g.stats, mins = Math.round((Date.now() - g.started) / 60000);
-  const rows = [[s.answered, plural(s.answered, 'pregunta', 'preguntas')]];
-  if (s.saved) rows.push([s.saved, plural(s.saved, 'guardada', 'guardadas')]);
-  let joke = null;
-  if (s.juicios) joke = [s.juicios, plural(s.juicios, 'discusión completamente innecesaria', 'discusiones completamente innecesarias')];
-  else if (s.caos) joke = [s.caos, plural(s.caos, 'regla de caos obedecida, más o menos', 'reglas de caos obedecidas, más o menos')];
-  else if (s.passed) joke = [s.passed, plural(s.passed, 'pregunta esquivada con elegancia', 'preguntas esquivadas con elegancia')];
-  const time = mins >= 5 ? ` · ${mins >= 60 ? `${Math.floor(mins / 60)} h ${mins % 60} min` : `${mins} min`} de sobremesa` : '';
-  return `<div class="s-head"></div><h2 class="h2">Fin de la partida</h2><p class="sub">${esc(g.label || D.MODES[g.mode].name)}${time}</p>
-  <div class="stats">${rows.map(([n, l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('')}${joke ? `<div class="stat joke"><b>${joke[0]}</b><span>${joke[1]}</span></div>` : ''}</div>
-  <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Otra partida</button><button class="btn ghost" data-a="go" data-v="favs">${ic('marks')}Ver favoritas</button></div>`;
 }
 
 function render(anim) {
-  const v = { home: homeView, modes: modesView, loading: loadingView, play: playView, favs: favsView, settings: settingsView, end: endView }[S.screen];
+  const v = { home: homeView, modes: modesView, loading: loadingView, play: playView, favs: favsView, settings: settingsView }[S.screen];
   app.innerHTML = v();
   const card = document.getElementById('card');
   if (card) {
@@ -333,7 +306,7 @@ app.addEventListener('click', e => {
   switch (a) {
     case 'go': if (S.screen === 'play') cancelAll(); S.from = S.screen === 'play' ? 'play' : 'home'; S.screen = v; S.confirmReset = false; render(true); break;
     case 'backfrom': S.screen = S.from === 'play' && S.game ? 'play' : 'home'; render(true); break;
-    case 'continue': if (S.game) { cancelAll(); S.card = BY_ID[S.game.cur] || drawCard(); S.step = firstStep(S.card); S.tmp = {}; S.screen = 'play'; render(true); } break;
+    case 'continue': resume(); break;
     case 'mode': S.mode = v; S.type = null; deal(); break;
     case 'type': S.type = v; deal(); break;
     case 'playfavs': S.loadingText = 'Barajando las mejores…'; S.screen = 'loading'; render(); setTimeout(() => startGame('favs', S.favs.slice()), 800); break;
@@ -345,7 +318,7 @@ app.addEventListener('click', e => {
     case 'jstart': S.step = 'a'; S.tmp.left = S.settings.judge; buzz(8); render(); break;
     case 'jnext': judgeNext(); break;
     case 'accept': {
-      const c = S.card; if (S.leaving) break; S.game.stats.caos++;
+      const c = S.card; if (S.leaving) break;
       if (c.n > 0) { S.game.rule = { name: c.name, text: plain(c.text), affects: c.affects, left: c.n, vetoes: c.affects === 'veto' ? 2 : 0 }; toast('Regla activada'); }
       S.seen.add(c.id); saveSeen(); buzz(10);
       leave(nextCard); break;
@@ -366,15 +339,46 @@ function deal() {
   S.loadingText = S.type ? 'Barajando solo esas…' : 'Buscando algo que nunca os habéis preguntado…'; S.screen = 'loading'; render();
   setTimeout(() => startGame(S.mode, null, S.type), 900);
 }
+function resume() { if (!S.game) return; cancelAll(); S.card = BY_ID[S.game.cur] || drawCard(); S.step = firstStep(S.card); S.tmp = {}; S.screen = 'play'; render(true); }
+/* atrás: adónde lleva cada pantalla cuando se desliza desde el borde izquierdo */
+function goBack() {
+  const sheet = document.querySelector('.sheet'); if (sheet) { sheet.remove(); return; }
+  if (S.screen === 'home' || S.screen === 'loading') return;
+  if (S.screen === 'play') { cancelAll(); S.screen = 'modes'; render(true); return; }
+  if ((S.screen === 'favs' || S.screen === 'settings') && S.from === 'play' && S.game) { resume(); return; }
+  S.screen = 'home'; S.confirmReset = false; render(true);
+}
+function attachBackGesture() {
+  let on = false, sx = 0, sy = 0, dx = 0, hint = null;
+  const EDGE = 28, GO = 90;
+  const cancel = () => { on = false; app.style.transition = 'transform .2s ease'; app.style.transform = ''; if (hint) { hint.remove(); hint = null; } };
+  document.addEventListener('pointerdown', e => {
+    if (e.clientX > EDGE || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    if (S.screen === 'home' || S.screen === 'loading') return;
+    on = true; sx = e.clientX; sy = e.clientY; dx = 0;
+    hint = document.createElement('div'); hint.className = 'back-hint'; hint.innerHTML = ic('back'); document.body.appendChild(hint);
+    e.preventDefault();
+  }, { capture: true, passive: false });
+  document.addEventListener('pointermove', e => {
+    if (!on) return; dx = e.clientX - sx;
+    if (Math.abs(e.clientY - sy) > 60 && dx < 30) { cancel(); return; }
+    const k = Math.min(1, Math.max(0, dx) / GO);
+    app.style.transition = 'none'; app.style.transform = `translateX(${Math.max(0, dx) * .35}px)`;
+    if (hint) { hint.style.opacity = k; hint.style.transform = `translate(${-24 + k * 36}px,-50%) scale(${.7 + k * .3})`; hint.classList.toggle('ready', k >= 1); }
+    e.preventDefault();
+  }, { capture: true, passive: false });
+  const end = () => { if (!on) return; const go = dx >= GO; cancel(); if (go) { buzz(8); goBack(); } };
+  document.addEventListener('pointerup', end, true); document.addEventListener('pointercancel', cancel, true);
+}
 function openMenu() {
   const el = document.createElement('div'); el.className = 'sheet';
   el.innerHTML = `<div class="sheet-card" role="dialog" aria-label="Menú">
-    <button data-m="close">${ic('play')}Seguir jugando</button><button data-m="end">${ic('stop')}Terminar partida</button>
+    <button data-m="close">${ic('play')}Seguir jugando</button><button data-m="modes">${ic('die')}Otra mezcla</button>
     <button data-m="favs">${ic('marks')}Favoritas</button><button data-m="settings">${ic('gear')}Ajustes</button><button data-m="home">${ic('home')}Volver al inicio</button></div>`;
   el.addEventListener('click', e => {
     const b = e.target.closest('[data-m]'); if (!b && e.target !== el) return;
     el.remove(); const m = b ? b.dataset.m : 'close';
-    if (m === 'end') endGame();
+    if (m === 'modes') { cancelAll(); S.screen = 'modes'; render(true); }
     if (m === 'favs' || m === 'settings') { S.from = 'play'; S.screen = m; render(true); }
     if (m === 'home') { cancelAll(); S.screen = 'home'; render(true); }
   });
@@ -393,7 +397,7 @@ function swipeOut(dir) {
 function attachSwipe(card) {
   let sx = 0, sy = 0, dx = 0, on = false;
   const sv = card.querySelector('.swipe-tag.save'), ps = card.querySelector('.swipe-tag.pass');
-  card.addEventListener('pointerdown', e => { if (e.target.closest('button,input') || !canSwipe()) return; on = true; sx = e.clientX; sy = e.clientY; dx = 0; card.style.transition = 'none'; });
+  card.addEventListener('pointerdown', e => { if (e.target.closest('button,input') || !canSwipe() || e.clientX <= 28) return; on = true; sx = e.clientX; sy = e.clientY; dx = 0; card.style.transition = 'none'; });
   card.addEventListener('pointermove', e => {
     if (!on) return; dx = e.clientX - sx;
     if (Math.abs(e.clientY - sy) > 40 && Math.abs(dx) < 20) { on = false; card.style.transform = ''; return; }
@@ -409,5 +413,6 @@ function attachSwipe(card) {
 S.devOn = location.hash === '#dev';
 if (S.devOn) window.__ntp = S;
 window.addEventListener('hashchange', () => { S.devOn = location.hash === '#dev'; if (S.screen === 'play') render(); });
+attachBackGesture();
 render();
 })();
