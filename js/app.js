@@ -159,7 +159,7 @@ function homeView() {
   return `<section class="home">
     <span class="mark sym" aria-hidden="true"><i class="halo"></i><svg class="key" viewBox="0 0 512 512" aria-hidden="true"><path d="M215 247.6 188 384h136l-27-136.4A74 74 0 1 0 215 247.6Z"/></svg></span>
     <h1 class="wordmark">Let’s Talk</h1>
-    <p class="tag">Todavía quedan cosas por descubrir.</p>
+    <p class="tag">Todavía quedan cosas por<br>descubrir.</p>
     <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Empezar</button>
       <div class="links"><button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
   </section>`;
