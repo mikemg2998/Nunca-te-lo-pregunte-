@@ -272,7 +272,7 @@ function render(anim) {
   app.innerHTML = v();
   app.style.transform = ''; // por si quedó un arrastre a medias
   document.querySelectorAll('.back-hint').forEach(h => h.remove());
-  document.body.classList.toggle('fixed', S.screen === 'play'); // la pantalla de cartas no se desplaza
+  document.body.classList.toggle('fixed', S.screen === 'play' || S.screen === 'home'); // inicio y cartas no se desplazan
   if (changed) { app.classList.remove('in'); void app.offsetWidth; app.classList.add('in'); } // fundido entre pantallas: repinta todo, sin restos
   const card = document.getElementById('card');
   if (card) {

@@ -53,7 +53,7 @@ body.fixed .stage{flex:1;display:flex;flex-direction:column;min-height:0;margin-
 body.fixed .card{flex:1;display:flex;flex-direction:column;min-height:0}
 body.fixed .face{flex:1;min-height:0}
 body.fixed .q-wrap{overflow:hidden}
-body.fixed .actions{margin-top:10px;flex:none}
+body.fixed .stage .actions{margin-top:10px;flex:none}
 .card{position:relative;border-radius:20px;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .2s ease,opacity .2s ease;will-change:transform}
 .face{position:relative;padding:18px 4px 12px;min-height:clamp(400px,62vh,580px);display:flex;flex-direction:column}
 .c-top{display:flex;justify-content:space-between;align-items:center;min-height:28px}
@@ -136,7 +136,7 @@ body.fixed .actions{margin-top:10px;flex:none}
 .link{border:0;background:none;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:12px 0;min-height:44px}
 
 /* inicio */
-.home{display:flex;flex-direction:column;flex:1;padding-top:8px}
+.home{display:flex;flex-direction:column;flex:1;min-height:0;padding-top:8px}
 .deck{position:relative;height:236px;margin:22px auto 0;width:166px}
 .deck div{position:absolute;inset:0;border-radius:16px;border:1px solid var(--line);background:linear-gradient(170deg,#1b1815,var(--card));box-shadow:0 20px 40px -18px #000}
 .deck div:nth-child(1){transform:rotate(-9deg) translate(-18px,8px);opacity:.5}
