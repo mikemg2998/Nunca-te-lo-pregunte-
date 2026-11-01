@@ -164,18 +164,16 @@ function homeView() {
   </section>`;
 }
 function modesView() {
-  const picked = S.type ? TYPE_BY[S.type][2] : D.MODES[S.mode].name;
   return `<div class="s-head"><button class="ibtn" data-a="go" data-v="home" aria-label="Volver">${ic('back')}</button></div>
   <h2 class="h2">¿Qué os apetece hoy?</h2>
-  <p class="sub">Una mezcla, o un solo tipo de carta.</p>
-  <span class="g-lab">Mezclas</span>
-  <div class="modes" role="radiogroup">${MODE_LIST.map(([k, i, t, d]) => `<button class="mode ${!S.type && S.mode === k ? 'on' : ''}" role="radio" aria-checked="${!S.type && S.mode === k}" data-a="mode" data-v="${k}">${ic(i)}<b>${t}</b><span>${d}</span></button>`).join('')}</div>
-  <span class="g-lab">Tipos de carta</span>
-  <div class="types" role="radiogroup">${TYPE_LIST.map(([k, i, t, d]) => `<button class="type ${S.type === k ? 'on' : ''}" role="radio" aria-checked="${S.type === k}" data-a="type" data-v="${k}"><b>${t}</b><span>${d}</span></button>`).join('')}</div>
-  <p class="picked">Hoy: <b>${esc(picked)}</b></p>
+  <p class="sub">Toca una mezcla o un tipo de carta y empezamos.</p>
   <div class="names"><label for="n1">Uno<input id="n1" type="text" maxlength="16" placeholder="Jugador 1" value="${esc(S.settings.p1)}" data-set="p1"></label>
   <label for="n2">Otro<input id="n2" type="text" maxlength="16" placeholder="Jugador 2" value="${esc(S.settings.p2)}" data-set="p2"></label></div>
-  <div class="actions"><button class="btn primary" data-a="start">Repartir</button></div>`;
+  <span class="g-lab">Mezclas</span>
+  <div class="modes">${MODE_LIST.map(([k, i, t, d]) => `<button class="mode" data-a="mode" data-v="${k}">${ic(i)}<b>${t}</b><span>${d}</span></button>`).join('')}</div>
+  <span class="g-lab">Tipos de carta</span>
+  <div class="types">${TYPE_LIST.map(([k, i, t, d]) => `<button class="type" data-a="type" data-v="${k}"><b>${t}</b><span>${d}</span></button>`).join('')}</div>
+`;
 }
 function loadingView() { return `<div class="loading">${S.loadingText}</div>`; }
 
@@ -336,9 +334,8 @@ app.addEventListener('click', e => {
     case 'go': if (S.screen === 'play') cancelAll(); S.from = S.screen === 'play' ? 'play' : 'home'; S.screen = v; S.confirmReset = false; render(true); break;
     case 'backfrom': S.screen = S.from === 'play' && S.game ? 'play' : 'home'; render(true); break;
     case 'continue': if (S.game) { cancelAll(); S.card = BY_ID[S.game.cur] || drawCard(); S.step = firstStep(S.card); S.tmp = {}; S.screen = 'play'; render(true); } break;
-    case 'mode': S.mode = v; S.type = null; render(); break;
-    case 'type': S.type = v; render(); break;
-    case 'start': S.loadingText = S.type ? 'Barajando solo esas…' : 'Buscando algo que nunca os habéis preguntado…'; S.screen = 'loading'; render(); setTimeout(() => startGame(S.mode, null, S.type), 1100); break;
+    case 'mode': S.mode = v; S.type = null; deal(); break;
+    case 'type': S.type = v; deal(); break;
     case 'playfavs': S.loadingText = 'Barajando las mejores…'; S.screen = 'loading'; render(); setTimeout(() => startGame('favs', S.favs.slice()), 800); break;
     case 'fav': toggleFav(b.dataset.id); if (S.screen === 'favs') render(); break;
     case 'done': finish('answered'); break;
@@ -364,6 +361,11 @@ app.addEventListener('click', e => {
   }
 });
 
+function deal() {
+  if (S.screen === 'loading') return;
+  S.loadingText = S.type ? 'Barajando solo esas…' : 'Buscando algo que nunca os habéis preguntado…'; S.screen = 'loading'; render();
+  setTimeout(() => startGame(S.mode, null, S.type), 900);
+}
 function openMenu() {
   const el = document.createElement('div'); el.className = 'sheet';
   el.innerHTML = `<div class="sheet-card" role="dialog" aria-label="Menú">

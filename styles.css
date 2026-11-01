@@ -170,9 +170,8 @@ svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 .type span{font-size:12px;line-height:1.35;color:var(--muted)}
 .type.on{border-color:var(--gold)}
 .type.on b{color:var(--gold-2)}
-.picked{margin:22px 0 0;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted)}
-.picked b{font-weight:400;color:var(--cream)}
-.names{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.names{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mode:active,.type:active{border-color:var(--gold);transform:scale(.99)}
 .names label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600;min-width:0}
 input[type=text]{width:100%;min-width:0;height:46px;border-radius:12px;border:1px solid #2a2622;background:var(--coal);color:var(--cream);font:18px var(--serif);padding:0 12px}
 .loading{flex:1;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--serif);font-style:italic;font-size:22px;color:var(--muted);padding:0 20px;animation:rise .4s ease both}
