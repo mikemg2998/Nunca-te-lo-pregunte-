@@ -443,7 +443,7 @@ render();
     sym.style.transform = `translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px) scale(1.15)`;
   }
   void home.offsetWidth;
-  later(() => { home.classList.add('go'); sym.style.transform = ''; }, still ? 60 : 560);
-  later(() => { home.classList.remove('intro', 'go'); }, still ? 900 : 1700);
+  later(() => { home.classList.add('go'); sym.style.transform = ''; }, still ? 60 : 1000);
+  later(() => { home.classList.remove('intro', 'go'); }, still ? 900 : 2800);
 })();
 })();

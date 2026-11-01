@@ -209,16 +209,16 @@ input[type=text]{width:100%;min-width:0;height:46px;border-radius:12px;border:1p
 .devbar button.on{border-style:solid;color:var(--cream)}
 
 /* entrada: el estado final es el estilo normal de la home; .intro solo fija el punto de partida y .go la transición */
-.home.intro .sym{opacity:0;animation:sym-in .4s cubic-bezier(.22,1,.36,1) forwards}
-.home.intro .sym .key{animation:key-grow .4s cubic-bezier(.22,1,.36,1) both}
-.home.intro .sym .halo{opacity:.8;animation:halo-breathe .56s ease-in-out}
+.home.intro .sym{opacity:0;animation:sym-in .65s cubic-bezier(.22,1,.36,1) forwards}
+.home.intro .sym .key{animation:key-grow .65s cubic-bezier(.22,1,.36,1) both}
+.home.intro .sym .halo{opacity:.8;animation:halo-breathe .95s ease-in-out}
 .home.intro .wordmark,.home.intro .tag,.home.intro .actions{opacity:0;transform:translateY(10px);filter:blur(6px)}
 .home.intro .actions{transform:translateY(6px);filter:none}
-.home.go .sym{transition:transform .62s cubic-bezier(.22,1,.36,1)}
-.home.go .sym .halo{animation:none;opacity:.5;transition:opacity .62s ease}
-.home.go .wordmark{opacity:1;transform:none;filter:blur(0);transition:opacity .5s cubic-bezier(.22,1,.36,1) .2s,transform .5s cubic-bezier(.22,1,.36,1) .2s,filter .5s cubic-bezier(.22,1,.36,1) .2s}
-.home.go .tag{opacity:1;transform:none;filter:blur(0);transition:opacity .5s cubic-bezier(.22,1,.36,1) .34s,transform .5s cubic-bezier(.22,1,.36,1) .34s,filter .5s cubic-bezier(.22,1,.36,1) .34s}
-.home.go .actions{opacity:1;transform:none;transition:opacity .45s cubic-bezier(.22,1,.36,1) .48s,transform .45s cubic-bezier(.22,1,.36,1) .48s}
+.home.go .sym{transition:transform .95s cubic-bezier(.22,1,.36,1)}
+.home.go .sym .halo{animation:none;opacity:.5;transition:opacity .95s ease}
+.home.go .wordmark{opacity:1;transform:none;filter:blur(0);transition:opacity .7s cubic-bezier(.22,1,.36,1) .3s,transform .7s cubic-bezier(.22,1,.36,1) .3s,filter .7s cubic-bezier(.22,1,.36,1) .3s}
+.home.go .tag{opacity:1;transform:none;filter:blur(0);transition:opacity .7s cubic-bezier(.22,1,.36,1) .52s,transform .7s cubic-bezier(.22,1,.36,1) .52s,filter .7s cubic-bezier(.22,1,.36,1) .52s}
+.home.go .actions{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.22,1,.36,1) .74s,transform .6s cubic-bezier(.22,1,.36,1) .74s}
 @keyframes sym-in{to{opacity:1}}
 @keyframes key-grow{from{transform:scale(.94)}to{transform:none}}
 @keyframes halo-breathe{0%{opacity:0;transform:translate(-50%,-50%) scale(.9)}60%{opacity:.95;transform:translate(-50%,-50%) scale(1.06)}100%{opacity:.8;transform:translate(-50%,-50%)}}
