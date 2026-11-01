@@ -156,11 +156,11 @@ function toggleFav(id) {
 
 /* ---------- pantallas ---------- */
 function homeView() {
-  return `<section class="home">
+  return `<section class="home${S.booted ? '' : ' intro'}">
     <span class="mark sym" aria-hidden="true"><i class="halo"></i><svg class="key" viewBox="0 0 512 512" aria-hidden="true"><path d="M215 247.6 188 384h136l-27-136.4A74 74 0 1 0 215 247.6Z"/></svg></span>
     <h1 class="wordmark">Let’s Talk</h1>
-    <p class="tag">Todavía quedan cosas por descubrir.</p>
-    <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Empezar</button>
+    <p class="tag">Después de tanto tiempo, todavía quedan preguntas.</p>
+    <div class="actions"><button class="btn primary" data-a="go" data-v="modes">Let’s go</button>
       <div class="links"><button class="link" data-a="go" data-v="favs">Favoritas</button><button class="link" data-a="go" data-v="settings">Ajustes</button></div></div>
   </section>`;
 }
@@ -430,13 +430,20 @@ if (S.devOn) window.__ntp = S;
 window.addEventListener('hashchange', () => { S.devOn = location.hash === '#dev'; if (S.screen === 'play') render(); });
 attachBackGesture();
 render();
-/* Entrada: el ojo de cerradura respira una vez y aparece el nombre. Tras la primera visita dura menos; con reduced-motion apenas se ve. */
-(function splash() {
-  const el = document.getElementById('splash'); if (!el) return;
-  const seen = store.get('seen-splash', false); store.set('seen-splash', true);
+/* Entrada: una sola composición. El ojo aparece centrado, respira, y viaja (FLIP) hasta su sitio en la home
+   mientras el resto se construye alrededor. El último fotograma ES la home: el estado final es el CSS por defecto. */
+(function intro() {
+  const home = app.querySelector('.home.intro'); S.booted = true;
+  if (!home) return;
+  const sym = home.querySelector('.sym');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (seen) el.classList.add('short');
-  const total = still ? 350 : seen ? 1050 : 1750;
-  later(() => { el.classList.add('out'); afterAnim(el, 'transitionend', () => el.remove(), 500); }, total);
+  if (!still) {
+    const r = sym.getBoundingClientRect();
+    const dx = innerWidth / 2 - (r.left + r.width / 2), dy = innerHeight / 2 - (r.top + r.height / 2);
+    sym.style.transform = `translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px) scale(1.15)`;
+  }
+  void home.offsetWidth;
+  later(() => { home.classList.add('go'); sym.style.transform = ''; }, still ? 60 : 560);
+  later(() => { home.classList.remove('intro', 'go'); }, still ? 900 : 1700);
 })();
 })();

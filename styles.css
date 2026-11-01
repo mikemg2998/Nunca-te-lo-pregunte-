@@ -135,7 +135,7 @@ body.fixed .stage .actions{margin-top:10px;flex:none}
 .btn.ghost{background:transparent}
 .link{border:0;background:none;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:12px 0;min-height:44px}
 
-/* inicio: símbolo → Let’s Talk → una frase → Empezar */
+/* inicio: símbolo → Let’s Talk → una frase → Let’s go */
 .home{display:flex;flex-direction:column;flex:1;min-height:0;padding-top:8px}
 .key{fill:none;stroke:currentColor;stroke-width:13.5;stroke-linejoin:round}
 .mark{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none}
@@ -146,7 +146,7 @@ body.fixed .stage .actions{margin-top:10px;flex:none}
 .home .sym .halo{opacity:.5;width:170%;height:170%}
 .home .actions{align-self:stretch}
 .wordmark{font-weight:700;font-size:clamp(58px,17vw,74px);line-height:.95;margin:22px 0 0;letter-spacing:-.045em;color:var(--cream)}
-.home .tag{font-size:18px;line-height:1.35;color:var(--muted);margin:14px auto 0;font-weight:340;max-width:none}
+.home .tag{font-size:18px;line-height:1.35;color:var(--muted);margin:14px auto 0;font-weight:340;max-width:26ch;text-wrap:balance}
 .home .actions{margin-top:auto;padding-top:30px}
 .links{display:flex;justify-content:space-around;gap:8px}
 
@@ -208,16 +208,21 @@ input[type=text]{width:100%;min-width:0;height:46px;border-radius:12px;border:1p
 .devbar button{flex:none;border:1px dashed #3a3530;background:none;color:var(--muted);font-size:11px;padding:5px 10px;border-radius:999px}
 .devbar button.on{border-style:solid;color:var(--cream)}
 
-/* splash: fondo carbón, el ojo aparece, el halo respira una vez, aparece el nombre, y se entra */
-.splash{position:fixed;inset:0;z-index:60;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;transition:opacity .42s ease;pointer-events:none}
-.splash.out{opacity:0}
-.splash .mark{width:92px;height:92px;color:#fdf3d9;opacity:0;animation:key-in .5s ease-out .1s forwards}
-.splash .halo{width:250%;height:250%;opacity:0;animation:breathe 1.3s ease-in-out .2s forwards}
-.splash b{font-weight:700;font-size:44px;letter-spacing:-.045em;line-height:1;color:var(--cream);opacity:0;transform:translateY(6px);animation:word-in .45s ease-out .55s forwards}
-.splash.short .mark{animation-duration:.3s;animation-delay:0s}
-.splash.short .halo{animation-duration:.8s;animation-delay:0s}
-.splash.short b{animation-delay:.12s;animation-duration:.3s}
-@keyframes key-in{to{opacity:1}}
-@keyframes breathe{0%{opacity:0;transform:translate(-50%,-50%) scale(.85)}45%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}}
-@keyframes word-in{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.splash .mark,.splash b{opacity:1;transform:none;animation:none}.splash .halo{opacity:.5;animation:none}.splash{transition-duration:.2s!important}}
+/* entrada: el estado final es el estilo normal de la home; .intro solo fija el punto de partida y .go la transición */
+.home.intro .sym{opacity:0;animation:sym-in .4s cubic-bezier(.22,1,.36,1) forwards}
+.home.intro .sym .key{animation:key-grow .4s cubic-bezier(.22,1,.36,1) both}
+.home.intro .sym .halo{opacity:.8;animation:halo-breathe .56s ease-in-out}
+.home.intro .wordmark,.home.intro .tag,.home.intro .actions{opacity:0;transform:translateY(10px);filter:blur(6px)}
+.home.intro .actions{transform:translateY(6px);filter:none}
+.home.go .sym{transition:transform .62s cubic-bezier(.22,1,.36,1)}
+.home.go .sym .halo{animation:none;opacity:.5;transition:opacity .62s ease}
+.home.go .wordmark{opacity:1;transform:none;filter:blur(0);transition:opacity .5s cubic-bezier(.22,1,.36,1) .2s,transform .5s cubic-bezier(.22,1,.36,1) .2s,filter .5s cubic-bezier(.22,1,.36,1) .2s}
+.home.go .tag{opacity:1;transform:none;filter:blur(0);transition:opacity .5s cubic-bezier(.22,1,.36,1) .34s,transform .5s cubic-bezier(.22,1,.36,1) .34s,filter .5s cubic-bezier(.22,1,.36,1) .34s}
+.home.go .actions{opacity:1;transform:none;transition:opacity .45s cubic-bezier(.22,1,.36,1) .48s,transform .45s cubic-bezier(.22,1,.36,1) .48s}
+@keyframes sym-in{to{opacity:1}}
+@keyframes key-grow{from{transform:scale(.94)}to{transform:none}}
+@keyframes halo-breathe{0%{opacity:0;transform:translate(-50%,-50%) scale(.9)}60%{opacity:.95;transform:translate(-50%,-50%) scale(1.06)}100%{opacity:.8;transform:translate(-50%,-50%)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .home.intro .sym{animation-duration:.3s!important}.home.intro .sym .key,.home.intro .sym .halo{animation:none}.home.intro .halo{opacity:.5}
+  .home.intro .wordmark,.home.intro .tag,.home.intro .actions{transform:none;filter:none}
+  .home.go .wordmark,.home.go .tag,.home.go .actions{transition-duration:.3s!important}}
