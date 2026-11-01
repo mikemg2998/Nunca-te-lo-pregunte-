@@ -255,8 +255,12 @@ function settingsView() {
 
 function render(anim) {
   const v = { home: homeView, modes: modesView, loading: loadingView, play: playView, favs: favsView, settings: settingsView }[S.screen];
+  const changed = S.lastScreen !== S.screen; S.lastScreen = S.screen;
   app.innerHTML = v();
+  app.style.transform = ''; // por si quedó un arrastre a medias
+  document.querySelectorAll('.back-hint').forEach(h => h.remove());
   document.body.classList.toggle('fixed', S.screen === 'play' || S.screen === 'loading'); // la pantalla de cartas no se desplaza
+  if (changed) { app.classList.remove('in'); void app.offsetWidth; app.classList.add('in'); } // fundido entre pantallas: repinta todo, sin restos
   const card = document.getElementById('card');
   if (card) {
     if (anim) card.classList.add('enter'); else if (S.swap) card.classList.add('swap');
