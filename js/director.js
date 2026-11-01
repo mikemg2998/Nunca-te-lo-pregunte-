@@ -17,8 +17,6 @@ const MODES = {
               cat: { obs: 3, lore: 2, comp: 1.6, ctx: 1.6, cdb: 2, teo: .3, rank: .4, mini: .5, hip: .6 } },
   demonios: { name: 'Qué demonios', mech: { libre: .46, rapida: .08, predice: .16, alavez: .10, juicio: .13, caos: .07 },
               rar: [0, .08, .12, 1, 4, 5] },
-  rapido:   { name: 'Rápido', mech: { libre: .28, rapida: .42, predice: .12, alavez: .12, juicio: .06, caos: 0 },
-              shortOnly: true },
   caos:     { name: 'Caos', mech: { libre: .30, rapida: .08, predice: .18, alavez: .12, juicio: .18, caos: .14 }, caosGap: 3 },
   favs:     { name: 'Favoritas', mech: { libre: .4, rapida: .12, predice: .17, alavez: .12, juicio: .11, caos: .08 } },
 };
@@ -41,7 +39,7 @@ function newGame(opts) {
  * game.filter: { mechs:[...], cats:[...] } restringe el mazo a un tipo de carta elegido a mano. */
 function pick(game, ctx) {
   const rng = ctx.rng || Math.random;
-  const M = MODES[game.mode] || MODES.random;
+  const M = MODES[game.mode] || MODES.random; // una mezcla retirada (p. ej. «Rápido») cae en Random total
   const used = new Set(game.used);
   const F = game.filter;
   const pool = (game.pool ? ctx.cards.filter(c => game.pool.includes(c.id)) : ctx.cards)

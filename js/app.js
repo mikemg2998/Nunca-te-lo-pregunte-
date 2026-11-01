@@ -48,7 +48,6 @@ const MODE_LIST = [
   ['tres', 'moon', '3 a.m.', 'Existenciales y extrañamente profundas.'],
   ['conoces', 'predice', '¿De verdad me conoces?', 'Predicciones y conocimiento de pareja.'],
   ['demonios', 'spiral', 'Qué demonios', 'Las más raras del mazo.'],
-  ['rapido', 'rapida', 'Rápido', 'Todo se responde en segundos.'],
   ['caos', 'caos', 'Caos', 'Reglas que cambian el juego, juicios y predicciones.'],
 ];
 
@@ -92,7 +91,7 @@ const plural = (n, a, b) => n === 1 ? a : b;
 function startGame(mode, pool, type) {
   const t = type ? TYPE_BY[type] : null;
   const filter = t ? t[4] : null;
-  S.game = { mode, type: type || null, label: t ? t[2] : D.MODES[mode].name, filter, history: [], used: [], pool: pool || null,
+  S.game = { mode, type: type || null, label: t ? t[2] : (D.MODES[mode] || D.MODES.random).name, filter, history: [], used: [], pool: pool || null,
     started: Date.now(), turn: 0, rule: null, cur: null };
   nextCard(true);
 }
@@ -168,7 +167,7 @@ function modesView() {
 function loadingView() { return `<div class="loading">${S.loadingText}</div>`; }
 
 function head() {
-  const g = S.game, label = g.label || D.MODES[g.mode].name;
+  const g = S.game, label = g.label || (D.MODES[g.mode] || D.MODES.random).name;
   let rule = '';
   if (g.rule) {
     const r = g.rule, pips = '<i></i>'.repeat(Math.max(0, r.left));
